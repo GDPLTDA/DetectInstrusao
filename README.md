@@ -20,12 +20,12 @@ Trabalho de conclusão de curso de ciência da computação.
  - [Node.JS](https://nodejs.org/)
 
 #### Instale o gulpJS 
-No bash/zsh/cmd/PowerShell
+Rode no bash/zsh/cmd/PowerShell
 ```sh
 npm install -g gulp
 ```
 
-Para isntalar as dependencias, na pasta `docs` rode
+Para instalar as dependencias, na pasta `docs` rode
 ```sh
 npm install
 ```
