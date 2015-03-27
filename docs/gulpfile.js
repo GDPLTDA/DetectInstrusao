@@ -10,7 +10,8 @@ gulp.task('texfiles', function () {
 	return gulp.src(files, {read: false})
 		.pipe(watch(files))
 		.pipe(plumber())
-    		.pipe(shell(['pdflatex -halt-on-error -file-line-error --output-directory=pdf  <%= file.path %> ']))	
+    		.pipe(shell(['pdflatex -halt-on-error -file-line-error --output-directory=pdf  <%= file.path %> ']) )
+					
 });
 
 
