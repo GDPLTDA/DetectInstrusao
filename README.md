@@ -1,5 +1,5 @@
 # Senac-TCC 
-### Bacharel em ciência da computação
+### Bacharelado em ciência da computação
 
 #### Alunos
  - [Lucas Teles](https://github.com/lucasteles)
@@ -9,8 +9,6 @@
  - [Eduardo Heredia](https://github.com/eheredia2511)
 
 -----------
-Trabalho de conclusão de curso de ciência da computação.
-
 
 ## Bibliografia Teorica
 - [Modelo HAND](http://modelohand.blogspot.com.br/2012/03/modelo-hand-na-previsao-de-enchentes_08.html)
