@@ -1,8 +1,10 @@
 # Senac-TCC
+-----------
 Trabalho de conclusão de curso de ciência da computação.
 
 
-### Bibliografia Teorica
+## Bibliografia Teorica
+-----------------------
 - [Modelo HAND](http://modelohand.blogspot.com.br/2012/03/modelo-hand-na-previsao-de-enchentes_08.html)
 - [Vulnerabilidades das Megacidades Brasileiras às Mudanças Climáticas: Sumario Executivo](http://mudancasclimaticas.cptec.inpe.br/~rmclima/pdfs/publicacoes/2010/SumarioExecutivo_megacidades.pdf)
 - [Estudo aponta que enchentes e deslizamentos serão mais frequentes na capital paulista](http://www.inpe.br/noticias/noticia.php?Cod_Noticia=2215)
@@ -12,29 +14,29 @@ Trabalho de conclusão de curso de ciência da computação.
 - [Entrevista Renato Tagnin - Gazeta](https://www.youtube.com/watch?v=fZJmAj2sFaE)
 
 
-### Compilando arquivos LATEX
-
+## Compilando arquivos LATEX
+----------------------------
 #### Dependencias
  - [TexLive](https://www.tug.org/texlive/)
  - [Node.JS](https://nodejs.org/)
 
 #### Instale o gulpJS 
 No bash/zsh/cmd/PowerShell
-´´´sh
+```sh
 npm install -g gulp
-´´´
+```
 
-Para isntalar as dependencias, na pasta "docs" rode
-´´´sh
+Para isntalar as dependencias, na pasta `docs` rode
+```sh
 npm install
-´´´
+```
 
 #### Iniciando monitor de compilação do latex
-na pasta onde se encontra o arquivo ´gumpfile.js´
+na pasta docs/ onde se encontra o arquivo ´gumpfile.js´
 
-´´´sh
+```sh
 gulp
-´´´
+```
 
 toda alteração no arquivo .tex na pasta tex ira gerar altomaticamente o pdf na pasta pdf/
 
