@@ -1,0 +1,17 @@
+{
+  "name": "gulp_tex_watch",
+  "version": "1.0.0",
+  "description": "watch para arquivos .tex",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Teles",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-plumber": "^1.0.0",
+    "gulp-shell": "^0.4.0",
+    "gulp-watch": "^4.2.1"
+  }
+}
