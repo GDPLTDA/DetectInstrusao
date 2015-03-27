@@ -10,3 +10,31 @@ Trabalho de conclusão de curso de ciência da computação.
 - [Aplicação do modelo HAND](http://4ccr.pgr.mpf.mp.br/documentos-e-publicacoes/adis-propostas/adi_4901_peticao_inicial_-_parte_2.pdf)
 - [Uso Multiplo da agua e multiplos conflitos em contextos urbanos](http://www.nepo.unicamp.br/textos/publicacoes/livros/migracao_urbanas/02pronex_14_Uso_Multiplo.pdf)
 - [Entrevista Renato Tagnin - Gazeta](https://www.youtube.com/watch?v=fZJmAj2sFaE)
+
+
+### Compilando arquivos LATEX
+
+#### Dependencias
+ - [TexLive](https://www.tug.org/texlive/)
+ - [Node.JS](https://nodejs.org/)
+
+#### Instale o gulpJS 
+No bash/zsh/cmd/PowerShell
+´´´sh
+npm install -g gulp
+´´´
+
+Para isntalar as dependencias, na pasta "docs" rode
+´´´sh
+npm install
+´´´
+
+#### Iniciando monitor de compilação do latex
+na pasta onde se encontra o arquivo ´gumpfile.js´
+
+´´´sh
+gulp
+´´´
+
+toda alteração no arquivo .tex na pasta tex ira gerar altomaticamente o pdf na pasta pdf/
+
