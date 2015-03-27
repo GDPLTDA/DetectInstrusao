@@ -38,7 +38,7 @@ npm install
 ```
 
 #### Iniciando monitor de compilação do latex
-na pasta docs/ onde se encontra o arquivo `gumpfile.js`
+Rode na pasta docs/ onde se encontra o arquivo `gumpfile.js`
 
 ```sh
 gulp
