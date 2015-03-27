@@ -1,4 +1,13 @@
-# Senac-TCC
+# Senac-TCC 
+### Bacharel em ciência da computação
+
+#### Alunos
+ - [Lucas Teles](https://github.com/lucasteles)
+ - [Rodrigo Mendonça](https://github.com/rodrigo-mendonca)
+
+#### Orientador
+ - [Eduardo Heredia](https://github.com/eheredia2511)
+
 -----------
 Trabalho de conclusão de curso de ciência da computação.
 
