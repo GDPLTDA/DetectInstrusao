@@ -4,7 +4,6 @@ Trabalho de conclusão de curso de ciência da computação.
 
 
 ## Bibliografia Teorica
------------------------
 - [Modelo HAND](http://modelohand.blogspot.com.br/2012/03/modelo-hand-na-previsao-de-enchentes_08.html)
 - [Vulnerabilidades das Megacidades Brasileiras às Mudanças Climáticas: Sumario Executivo](http://mudancasclimaticas.cptec.inpe.br/~rmclima/pdfs/publicacoes/2010/SumarioExecutivo_megacidades.pdf)
 - [Estudo aponta que enchentes e deslizamentos serão mais frequentes na capital paulista](http://www.inpe.br/noticias/noticia.php?Cod_Noticia=2215)
@@ -14,7 +13,7 @@ Trabalho de conclusão de curso de ciência da computação.
 - [Entrevista Renato Tagnin - Gazeta](https://www.youtube.com/watch?v=fZJmAj2sFaE)
 
 
-## Compilando arquivos LATEX
+### Compilando arquivos LATEX
 ----------------------------
 #### Dependencias
  - [TexLive](https://www.tug.org/texlive/)
@@ -32,11 +31,11 @@ npm install
 ```
 
 #### Iniciando monitor de compilação do latex
-na pasta docs/ onde se encontra o arquivo ´gumpfile.js´
+na pasta docs/ onde se encontra o arquivo `gumpfile.js`
 
 ```sh
 gulp
 ```
 
-toda alteração no arquivo .tex na pasta tex ira gerar altomaticamente o pdf na pasta pdf/
+toda alteração no arquivo `.tex` na pasta tex ira gerar altomaticamente o pdf na pasta pdf/
 
