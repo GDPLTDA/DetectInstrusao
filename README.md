@@ -11,14 +11,18 @@
 -----------
 
 ## Bibliografia Teorica
-- [Modelo HAND](http://modelohand.blogspot.com.br/2012/03/modelo-hand-na-previsao-de-enchentes_08.html)
-- [Vulnerabilidades das Megacidades Brasileiras às Mudanças Climáticas: Sumario Executivo](http://mudancasclimaticas.cptec.inpe.br/~rmclima/pdfs/publicacoes/2010/SumarioExecutivo_megacidades.pdf)
-- [Estudo aponta que enchentes e deslizamentos serão mais frequentes na capital paulista](http://www.inpe.br/noticias/noticia.php?Cod_Noticia=2215)
-- [Vulnerabilidades Das Megacidades Brasileiras Às Mudanças Climáticas: Final](http://www.nepo.unicamp.br/textos/publicacoes/livros/megacidades/megacidades_RMSP.pdf)
-- [Aplicação do modelo HAND](http://4ccr.pgr.mpf.mp.br/documentos-e-publicacoes/adis-propostas/adi_4901_peticao_inicial_-_parte_2.pdf)
-- [Uso Multiplo da agua e multiplos conflitos em contextos urbanos](http://www.nepo.unicamp.br/textos/publicacoes/livros/migracao_urbanas/02pronex_14_Uso_Multiplo.pdf)
-- [Entrevista Renato Tagnin - Gazeta](https://www.youtube.com/watch?v=fZJmAj2sFaE)
+- [Fuzzy Network Profiling for Intrusion Detection](http://home.engineering.iastate.edu/~julied/publications/NAFIPSpaper2000.pdf)
+- [An Improved Intrusion Detection based on Neural Network and Fuzzy Algorithm](http://ojs.academypublisher.com/index.php/jnw/article/download/jnw090512741280/9265)
+- [Improving Network Attack Alarm System: A Proposed Hybrid Intrusion Detection System Model](http://www.computerscijournal.org/download/1613)
+- [Artificial Intelligence in Network Intrusion Detection](http://www.fer.unizg.hr/_download/repository/KDI,_Miroslav_Stampar.pdf)
+- [Current Studies On Intrusion Detection System, Genetic Algorithm And Fuzzy Logic](http://arxiv.org/ftp/arxiv/papers/1304/1304.3535.pdf)
 
+## Ferramentas
+- [GO](http://arxiv.org/ftp/arxiv/papers/1304/1304.3535.pdf)
+- [WireShark](https://www.wireshark.org/)
+- [PCAP](https://godoc.org/code.google.com/p/gopacket/pcap) 
+- [GNS3](http://www.gns3.com/)
+ 
 
 ### Compilando arquivos LATEX
 ----------------------------
