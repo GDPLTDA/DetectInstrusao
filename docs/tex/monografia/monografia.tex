@@ -199,6 +199,7 @@
   \item[NIDS] Network Intrusion Detection System
   \item[IA] Inteligência Artificial
   \item[RNA] Rede Neural Artificial
+  \item[AG] Algotitimo genético
 \end{siglas}
 % ---
 
@@ -221,35 +222,53 @@
 \chapter[Introdução]{Introdução}
 %\addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
-Detecção de intrução é uma forma de monitorar eventos em um sistema de computador ou uma rede de computadores,
-e analisar possiveis incidentes,utilizando de politicas ou uso pratico.
+
+\section{Contexto}
+
+Analisar e melhorar os sistemas de detecção de intrusao é uma abordagem importante nos dias atuais, aonde a segurança da informação é essencial, torna-se necessario analisar formas de detectar tentativas de lesar a integridade, confidencialidade ou disponibilidade desta.
+
+O trabalho dos sistemas de detecção de intrusão (IDS) é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão.Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo assim uma ferramenta pró-ativa em vez de reativa[3].
+
+Podemos classifar os IDS da seguinte forma. 
+
+Baseado em Host ou baseado em rede aonde o primeiro faz uso de arquivos de log de cada computador individualmente e o segundo captura pacotes que trafegam na rede para analisar seu conteudo.
+
+Online ou Offline, onde um é capaz de detectar e marcar um instruso enquanto a esta sendo realizida a intrusão, e o outro analisa registros após o evento ocorrer e indica que houve uma violação de segurança tinha ocorrido desde a última verificação, respectivamente.
+
+Baseado em abuso ou baseado em anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
+
+Muitos dos metodos utilizados nos IDS são baseados em inteligencia artificial, tais como Algoritimo genetico(AG)[4] e Redes Neurais Artificiais (RNA)[2][5].
+
+Algoritmo genético é uma família de modelos computacionais baseados em princípios de evolução e seleção natural. Esses algoritmos convertem o problema de um domínio específico para um modelo usando uma estrutura de dados  \"cromossomo" de forma a evoluir estes cromossomos usando operadores de seleção, recombinação e mutação[4]. 
+O processo de um algoritmo genético geralmente começa com uma população selecionada aleatoriamente de cromossomos. estes cromossomos são representações do problema a ser resolvido. De acordo com os atributos do problema, diferentes posições de cada cromossomo são codificados como bits, caracteres ou números. Estas posições são muitas vezes referidos como genes e são alterados aleatoriamente dentro de um intervalo durante a evolução. 
+
+As RNA são uma classe de algoritimos para aprendizado de maquina, usada para realizar classificação de dados. A rede neural é treinada de forma a dar mais importancia para as principais caracteristicas de uma determinada instancia de um problema, para ajudar a classificar os dados que ainda estão por vir. 
+RNAs tem sido utilizadas com sucesso na detecção de intrusão [6][7][8],no entanto ela necessita de uma quantidade substanciao de dados para tralizar o trinamento antes de receber os dados novos para classificação, por causa dessa limitação elas nao são capazes de serem bem treinadas em casos de baixa frequencia de ataques, resultando em uma baixa taxa de acerto na detecção[9]
+
 
 \section{Motivação}
 
-Eventos de intrução estão ficando cada vez mais comuns, por que,
-empresas e pessoas dependem cada vez mais da infra estrutura computacional e estaão cada vez mais conectados a internet para realizar suas tarefas, este crescimento é exponencial, existindo um risco de estar conectado a todo estante desta forma, 
-a preocupação que vem crescendo juntamente a esta necessidade é relativo a segurança da informação.
-Mesmo existindo grande esforço para prover segurança neste ambiente, o numero e complexidade de eventos relacionados a quebra de segurança continua crescendo. Pode ser visto pelos reportes feitos ao CERT (Computer Emergency Response Team) até o ano de 2014.
+Apesar de vários esforços de prover a segurança em redes, o número,variedade e complexidade dos incidentes relacionados à segurança tem crescido(Figura 1)[1].
+
 \begin{figure}[!htb]
      \centering
      \includegraphics[scale=0.5]{Imagens/IntroGraf.png}
      \caption{Incidentes ano a ano. Fonte: (CERT/CC, 2015)}
 \end{figure}
 
-Com esses incidentes ficando cada vez mais comuns, é necessario investir em sistemas de detecção de intrusão e segurança computacional.
-O trabalho desses sistemas é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão, para isso precisamos de sistemas suficientemente inteligentes para detecção, esses são classificados como Sistemas de Detecção de Intrusão (Intrusion Detection System
-- IDS), são soluções passivas para analisar os dados da rede e avisar se existe alguma atividade suspeita.
-Empresas como bancos por exemplo, precisam investir bastante em segurança pelo fato de ter um alto risco de perda financeiro, como também a imagem da instituição, dificilmente seus clientes vão ficar tranquilos sabendo que a instituição que cuida de seu dinheiro e retém várias dados pessoas foi invadida.
-Órgãos governamentais também se preocupam com o problemas de invasões, por medo de roubo de informações de outros países ou terroristas.
-Porém acontecer também roubo de novas tecnologias,estrangeiras e documentos importantes. Com tantas informações importantes fazem a segurança ser prioridade quando o assunto é tecnologia.
-Esta é a principal motivação para este trabalho, que irá propor, modelar, implementar e realizar experimentos de uma solução para IDS utilizando técnicas de inteligência artificial.
+Com isso é necessario pensar em abordagens mais sofisticadas para IDS, como utilização de abordagens hibridas diferentes relativo a tecnicas de IA, estas já têm sido exploradas para ultrapassar os problemas de qualquer um dos métodos individuais[10][11][12]. 
+
 
 \section{Objetivos}
 Temos como objetivo criar uma ferramenta que seja de fácil uso e posso ser usada por outros desenvolvedores em suas aplicações, onde irá detectar um ou mais tipos de ataques conhecidos e alguns semelhantes,dando um baixo número de erros.
 
 \section{Método de trabalho}
-Usando a languagem de programações GO,será criada uma API multi-sistemas (Windows,MacOS e Linux) que monitora a rede usando um algoritmo de inteligência artificial, aprendendo como a rede se comporta em situações normais e conseguindo indentificar anomalias.
+
+
+
 \section{Organização do trabalho}
+
+
 
 % ----------------------------------------------------------
 % Capitulo 2
@@ -320,6 +339,7 @@ durante a transmissão, afetando não só a confidencialidade como a integridade
 % ---
 
 
+
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
@@ -331,5 +351,57 @@ durante a transmissão, afetando não só a confidencialidade como a integridade
 % ----------------------------------------------------------
 \chapter[Bibliografia]{Bibliografia}
 \bibliography{abntex2-modelo-references}
-\bibliography{bib/monografia.bib}
+%\bibliography{bib/monografia.bib}
+[1] CERT/CC. CERT/CC Statistics 1988-2015. Computer Emergency Response
+Team (Coordenation Center), Maio 2015. Acessado em 22/05/2015. Disponível
+em: <http://www.cert.br/stats/>.
+
+[2] Shraddha Surana, “Intrusion Detection using Fuzzy Clustering and Artificial Neural Network” Research Scholar, Department of Computer Engineering, Vishwakarma Institute of Technology, Pune, 2014
+
+[3] W. W. Fu and L. Cai, “A Neural Network based Intrusion Detection Data Fusion Model,” in Third International Joint Conference on Computational Science and Optimization, 2010. 
+
+[4] Wei Li, Using Genetic Algorithm for Network Intrusion Detection, Department of Computer Scienceand Engineering Mississippi State University, Mississi ppi State, MS 39762 
+
+[5] Jake Ryan, Meng-Jang Lin and Risto Miikkulainen. Intrusion Detection with Neural
+Networks. In Advances in Neural Information Processing Systems 10, MIT Press, 1998.
+
+
+[6] C. Zhang, J. Jiang and M. Kamel, “Intrusion
+Detection using hierarchical neural
+networks,” Pattern Recognition Letters, pp.
+779-791, 2005.
+
+[7] X. Tong, Z. Wang and H. Yu, “A research
+using hybrid RBF/ Elman neural networks for
+intrusion detection system secure model,”
+Computer Physics Communication, pp. 1795-
+1801, 2009.
+
+[8] S.-C. O. K. Y. Wonil Kim, “Intrusion
+Detection Based on Feature Transform Using
+Neural Network,” in Computational Science -
+ICCS 2004, vol. 3037, Springer Berlin
+Heidelberg, 2004, pp. 212-219
+
+[9] R. Beghdad, “Critical study of neural networks in detecting intrusions,” Computers \& Security, pp. 168-175, 2008.
+
+[10] G. Liu, Z. Yi and S. Yang, “A hierarchical
+intrusion detection model based on the PCA
+neural networks,” Neurocomputing, pp. 1561-
+1568, 2007.
+
+[11] L. Ren, “Research of Web Data Mining based
+on Fuzzy Logic and Neural Networks,” in
+Sixth International Conference on Fuzzy
+Systems and Knowledge Discovery, 2006.
+
+[12] F. M.-P. F. J. M.-G. R. L.-F. J. A. G.-M.-A.
+D. M.-J. Iren Lorenzo-Fonseca, “Intrusion
+detection method using Neural Networks
+based on the reduction of characteristics,” in
+Bio-Inspired Systems: Computational and
+Ambient Intelligence, vol. 5517, Springer
+Berlin Heidelberg, 2009, pp. 1296-1303.
+
+
 \end{document}
