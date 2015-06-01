@@ -199,6 +199,7 @@
   \item[NIDS] Network Intrusion Detection System
   \item[IA] Inteligência Artificial
   \item[RNA] Rede Neural Artificial
+  \item[IM] Inteligencia de maquina	
 \end{siglas}
 % ---
 
@@ -221,35 +222,67 @@
 \chapter[Introdução]{Introdução}
 %\addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
-Detecção de intrução é uma forma de monitorar eventos em um sistema de computador ou uma rede de computadores,
-e analisar possiveis incidentes,utilizando de politicas ou uso pratico.
+
+\section{Contexto}
+
+Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes de quebra de segurança. Segundo o CERT [1](Centro de Estudos, Resposta e Tratamento de Incidentes de Segurança no Brasil) tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
+ataques acabou despertando interesse por ferramentas automatizadas para detectar ataques e analisar formas de aprimorar as técnicas atuais para tal.
+
+Chamamos as ferramentas de detecção de intrusão de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo assim uma ferramenta passiva.
+Temos as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisa o trafego e os eventos de uma rede, porem reage de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa .
+
+Podemos classificar os IDS da seguinte forma. 
+
+Baseado em Host ou baseado em rede onde o primeiro faz uso de arquivos de log de cada computador individualmente e o segundo captura pacotes que trafegam na rede para analisar seu conteúdo.
+
+Online ou Offline, onde um é capaz de detectar e marcar um intruso enquanto a esta sendo realizada a intrusão, e o outro analisa registros após o evento ocorrer e indica que houve uma violação de segurança tinha ocorrido desde a última verificação, respectivamente.
+
+Baseado em abuso ou baseado em anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
+
+A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (IA), entre as varias técnicas conhecidas de IA, a que tem tido melhores resultados e consequente a mais usada é a de Redes Neurais Artificiais (RNA)[2][3].
+
+As RNA são uma classe de algorítimos para aprendizado de maquina (AM), usada para realizar classificação de dados. A rede neural é treinada de forma a dar mais importância para as principais características de uma determinada instancia de um problema, para ajudar a classificar os dados que ainda estão por vir. 
+RNAs tem sido utilizadas com sucesso na detecção de intrusão [4][5][6], sela necessita de uma quantidade substancial de dados para realizar o treinamento, a partir desse treinamento que ela tera a capacidade de identificar os padrões para depois receber os dados novos para classificação.
+
 
 \section{Motivação}
 
-Eventos de intrução estão ficando cada vez mais comuns, por que,
-empresas e pessoas dependem cada vez mais da infra estrutura computacional e estaão cada vez mais conectados a internet para realizar suas tarefas, este crescimento é exponencial, existindo um risco de estar conectado a todo estante desta forma, 
-a preocupação que vem crescendo juntamente a esta necessidade é relativo a segurança da informação.
-Mesmo existindo grande esforço para prover segurança neste ambiente, o numero e complexidade de eventos relacionados a quebra de segurança continua crescendo. Pode ser visto pelos reportes feitos ao CERT (Computer Emergency Response Team) até o ano de 2014.
-\begin{figure}[!htb]
-     \centering
-     \includegraphics[scale=0.5]{Imagens/IntroGraf.png}
-     \caption{Incidentes ano a ano. Fonte: (CERT/CC, 2015)}
-\end{figure}
+Esforços realizados para proporcionar segurança em ambientes computacionais, tem como motivação o fato de existirem riscos que podem comprometer a integridade, confiabilidade e disponibilidade da informação. 
+Esses riscos são avaliados de acordo com as chances do mesmo ocorrer e com os custos envolvidos para tratá-lo. Técnicas de defesa vêm sendo aprimoradas, porém ainda existem diversas limitações que as impedem de estarem efetivamente preparadas para o qualquer tipo de ataque[7], sendo assim necessário  soluções inovadoras para tratar os níveis de ameaças atuais e futuras. 
+Este cenário é a principal motivação deste trabalho que consiste em propor, implementar e mensurar resultados de uma solução para treinamento de RNA para detecção e prevenção de intrusão.
 
-Com esses incidentes ficando cada vez mais comuns, é necessario investir em sistemas de detecção de intrusão e segurança computacional.
-O trabalho desses sistemas é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão, para isso precisamos de sistemas suficientemente inteligentes para detecção, esses são classificados como Sistemas de Detecção de Intrusão (Intrusion Detection System
-- IDS), são soluções passivas para analisar os dados da rede e avisar se existe alguma atividade suspeita.
-Empresas como bancos por exemplo, precisam investir bastante em segurança pelo fato de ter um alto risco de perda financeiro, como também a imagem da instituição, dificilmente seus clientes vão ficar tranquilos sabendo que a instituição que cuida de seu dinheiro e retém várias dados pessoas foi invadida.
-Órgãos governamentais também se preocupam com o problemas de invasões, por medo de roubo de informações de outros países ou terroristas.
-Porém acontecer também roubo de novas tecnologias,estrangeiras e documentos importantes. Com tantas informações importantes fazem a segurança ser prioridade quando o assunto é tecnologia.
-Esta é a principal motivação para este trabalho, que irá propor, modelar, implementar e realizar experimentos de uma solução para IDS utilizando técnicas de inteligência artificial.
 
 \section{Objetivos}
-Temos como objetivo criar uma ferramenta que seja de fácil uso e posso ser usada por outros desenvolvedores em suas aplicações, onde irá detectar um ou mais tipos de ataques conhecidos e alguns semelhantes,dando um baixo número de erros.
+
+Temos como objetivo propor uma forma de aprimorar o sistema de aprendizado de redes neurais artificiais para detecção e prevenção de intrusão.
+
+Para isso sera necessário utilizar uma base de testes com grande volume de dados de trafego em rede.
+Gerar uma base em um ambiente controlado para testes específicos.
+Implementar uma solução de IPS/IDS que utilize RNA  para classificar os tipos de ataque.
+Comparar resultados com outras técnicas de treinamento para RNA.
+
 
 \section{Método de trabalho}
-Usando a languagem de programações GO,será criada uma API multi-sistemas (Windows,MacOS e Linux) que monitora a rede usando um algoritmo de inteligência artificial, aprendendo como a rede se comporta em situações normais e conseguindo indentificar anomalias.
+
+Utilizaremos a base de dados de trafego em rede KDD Cup 99, por ser uma das bases mais completas e amplamente utilizada nos testes de IDS, sera essencial para se realizar uma comparação consistente de resultados.
+
+Para gerar nossa base mais especifica iremos monitorar um ambiente de rede durante um período, no qual serão realizados alguns ataques controlados periodicamente, sera gerado um log que usaremos na nosso sistema.
+
+Desenvolver uma solução para analise dos pacotes e eventos de uma rede, esta sera desenvolvida em Go, utilizara RNA para classificar as atividades na rede.
+
+Realizar treinamento em ambas as bases de dados, serão formas diversificadas de treinamento, sera feito uma comparação de acertos/erros e tempo necessário para treino.
+
+Faremos uma comparação de desempenho e efetividade de nossa solução e algumas que temos hoje.
+
 \section{Organização do trabalho}
+
+Este trabalho esta dividido em trés partes.
+Na próxima seção, sera apresentado o estado da arte, onde sera revisado a literatura sobre detecção e prevenção de intrusão utilizando RNA.
+
+Logo apos teremos a proposta  de forma mais detalhada do que é pretendido realizar na próxima etapa do trabalho.
+
+Por fim um cronograma de controle sobre como prosseguira a segunda etapa deste trabalho.
+
 
 % ----------------------------------------------------------
 % Capitulo 2
@@ -257,51 +290,6 @@ Usando a languagem de programações GO,será criada uma API multi-sistemas (Win
 \chapter[Revisão de Literatura]{Revisão de Literatura}
 %\addcontentsline{toc}{chapter}{Revisão de Literatura}
 % ----------------------------------------------------------
-\section{Segurança e Detecção de intrusão}
-
-O IDS usa padrões ja conhecidos de atividades ilegais para indentificar se o comportamento esta diferente do perfil tradicional, porém não é incomun ocorrer os chamados falsos negativos ou falsos positivos, isso ocorre por existir uma margem de erro nestas classificações. 
-Após isso para negar o serviço ao intruso é necessario o uso de um Sistema de Prevenção de Intrusão (Intrusion Prevention System - IPS), este é uma solução ativa que provê políticas e regras para o tráfego de rede, quanto o IDS somente avisa a atividade suspeita, o IPS tenta parar essa atividade, porém também possui uma taxa de erro.
-Com a popularização de ferramentas e técnicas cada vez mais sofisticadas de intrusão é necessario criar ferramentas e tecnicas mais sofisticadas para IDS e IPS.
-
-O objetivo é criar um sistema de detecção de intrução que apresente um baixo indice de erros utilizando tecnicas de inteligencia artificial, onde o sistema vai aprender, quais são os comportamentos aceitos na rede de computadores.
-
-Os principais objetivos da segurança computacional são:
-
-\textbf{Confidencialidade}: a garantia de que a informação esteja disponível somente para aqueles que tem autorização para obtê-la.
-
-\textbf{Integridade}: é a garantia de que a informação permanecerá inalterada mesmo sob situações críticas, como acidentes ou tentativas de manipulações hostis.
-
-\textbf{Disponibilidade}: consiste na proteção dos recursos e serviços prestados pelo sistema de forma que eles não sejam degradados ou se tornem indisponíveis garantindo assim que a informação estará sempre acessível e pronta para o uso.
-
-
-
-Qualquer atividade que possa comprometer qualquer um desses
-objetivos é considerada uma violação às políticas de segurança.
-
- \section{Ameaças à segurança}
-
- As falhas de segurança são contantes nos sistemas computacionais, essas os sujeitam a varios tipos de ameaças internas ou esternas, que podem acabar desencadeando intrusoes que exploram as vulnerabilidades do sistema.  
-
- A motivação para exploração dessas vulnerabilidades podem ser de simples vandalismo até tecnicas de espionagem.
-
-Segundo um relatório técnico gerado pelo Sandia National Laboratories (HOWARD; LONGSTAFF, 1998) é apresentado uma taxonomia que se baseia em ações para classificar ameaças à segurança em cima das informações que estão em transito. 
-
-As caracteristicas destas são (podem ser visualizadas na figura 2):
-
-\textbf{Interrupção:} As informações em trânsito são interrompidas, impossibilitando que as mesmas cheguem até seu destino e prejudicando a questão da disponibilidade dos recursos.
-
-\textbf{Interceptação:} As informações são interceptadas durante a transmissão, comprometendo a confidencialidade da mensagem.
-
-\textbf{Modificação:} As informações são interceptadas e alteradas 
-durante a transmissão, afetando não só a confidencialidade como a integridade da mensagem.
-
-\textbf{Fabricação:} Trata-se da inserção de informações em determinada comunicação, comprometendo a autenticidade das informações recebidas.
-
-\begin{figure}[!htb]
-     \centering
-     \includegraphics[scale=0.8]{Imagens/Classificacoes.png}
-     \caption{Taxonomia baseada em ações}
-\end{figure}
 
 
 % ----------------------------------------------------------
@@ -320,6 +308,7 @@ durante a transmissão, afetando não só a confidencialidade como a integridade
 % ---
 
 
+
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
@@ -331,5 +320,35 @@ durante a transmissão, afetando não só a confidencialidade como a integridade
 % ----------------------------------------------------------
 \chapter[Bibliografia]{Bibliografia}
 \bibliography{abntex2-modelo-references}
-\bibliography{bib/monografia.bib}
+%\bibliography{monografia}
+
+[1] CERT/CC. CERT/CC Statistics 1988-2015. Centro de Estudos, Resposta e Tratamento de Incidentes de Segurança  (Coordenation Center), Maio 2015. Acessado em 22/05/2015. Disponível
+em: <http://www.cert.br/stats/incidentes/2014-jan-dec/analise.html>.
+
+[2] Miroslav Stampar, “Artificial Inteligence in network intrusion detection” Information Systems Security Bureal, 2014
+
+[3] Jake Ryan, Meng-Jang Lin and Risto Miikkulainen. Intrusion Detection with Neural
+Networks. In Advances in Neural Information Processing Systems 10, MIT Press, 1998.
+
+
+[4] C. Zhang, J. Jiang and M. Kamel, “Intrusion
+Detection using hierarchical neural
+networks,” Pattern Recognition Letters, pp.
+779-791, 2005.
+
+[5] X. Tong, Z. Wang and H. Yu, “A research
+using hybrid RBF/ Elman neural networks for
+intrusion detection system secure model,”
+Computer Physics Communication, pp. 1795-
+1801, 2009.
+
+[6] S.-C. O. K. Y. Wonil Kim, “Intrusion
+Detection Based on Feature Transform Using
+Neural Network,” in Computational Science -
+ICCS 2004, vol. 3037, Springer Berlin
+Heidelberg, 2004, pp. 212-219
+
+[7] R. Beghdad, “Critical study of neural networks in detecting intrusions,” Computers \& Security, pp. 168-175, 2008.
+
+
 \end{document}
