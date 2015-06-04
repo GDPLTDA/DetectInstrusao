@@ -178,17 +178,17 @@
 % ---
 % inserir lista de ilustrações (figuras)
 % ---
-\pdfbookmark[0]{\listfigurename}{lof}
-\listoffigures*
-\cleardoublepage
+%\pdfbookmark[0]{\listfigurename}{lof}
+%\listoffigures*
+%\cleardoublepage
 % ---
 
 % ---
 % inserir lista de tabelas
 % ---
-\pdfbookmark[0]{\listtablename}{lot}
-\listoftables*
-\cleardoublepage
+%\pdfbookmark[0]{\listtablename}{lot}
+%\listoftables*
+%\cleardoublepage
 % ---
 
 % ---
@@ -226,19 +226,19 @@
 
 \section{Contexto}
 
-Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes de quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
+Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes sobre quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
 ataques acabou despertando interesse por ferramentas automatizadas para detectar ataques e analisar formas de aprimorar as técnicas atuais para tal.
 
-Chamamos as ferramentas de detecção de intrusão de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo assim uma ferramenta passiva.
-Temos as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisa o trafego e os eventos de uma rede, porem reage de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa .
+As ferramentas de detecção de intrusão são chamadas de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo desta forma uma ferramenta passiva.
+Existem as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisam o trafego e os eventos de uma rede, porem reagem de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa .
 
-Podemos classificar os IDS da seguinte forma. 
+Podemos classificar os IDS da seguinte forma.
 
-Baseado em Host ou baseado em rede onde o primeiro faz uso de arquivos de log de cada computador individualmente e o segundo captura pacotes que trafegam na rede para analisar seu conteúdo.
+Baseado em Host ou rede, onde o primeiro faz uso de arquivos de log para cada computador individualmente e o segundo captura pacotes que trafegam na rede para analisar seu conteúdo.
 
 Online ou Offline, onde um é capaz de detectar e marcar um intruso enquanto a esta sendo realizada a intrusão, e o outro analisa registros após o evento ocorrer e indica que houve uma violação de segurança tinha ocorrido desde a última verificação, respectivamente.
 
-Baseado em abuso ou baseado em anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
+Baseado em abuso ou anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
 
 A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (IA), entre as varias técnicas conhecidas de IA, a que tem tido melhores resultados e consequente a mais usada é a de Redes Neurais Artificiais (RNA)\cite{Jake-Ryan}\cite{Stampar}.
 
