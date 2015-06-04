@@ -304,9 +304,10 @@ A ideia de utilizar outra rede neural é utilizada para minimizar o numero de fa
 apenas duas categorias trafego normal ou anomalia.O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9,
 mas no POLVO-IIDS, foi utilizado de 0,2 a 0,8 para evitar erro de algum possível ataque. O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas,mostrando que o modelo POLVO-IIDS é um modelo eficiente.
 
-Um trabalho feito na Pontifícia Univercidade Católica do Rio de Janeiro(Renato Maia Silva,Marco Antonio Grivet M. Maia)[2], demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
+Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro(Renato Maia Silva,Marco Antonio Grivet M. Maia)[2], demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
 utilizando 4 redes, apenas uma utiliza as 41 categorias diferentes, as outras 3 utilizam apenas 9 categorias básicas do TCP-IP, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias e a segunda rede com apenas 9 categorias com apenas uma saída, identificando como 1 ataque ou -1 normal, a terceira com apenas uma saída e 9 categorias, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. As taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5% na sua taxa de acertos.
 
+Na Universidade Federal de Santa Maria(Bruno Lopes Dalmazo, Francisco Vogt, Tiago Perlin, Raul Ceretta Nunes ,2008)[3],utilizando serie temporal que eh um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.A fonte de informação representada por um coletor associado a um host, rede ou segmento de rede.Analise sendo parte da SDI que verifica eventos derivados da fonte de informação onde eh determinada a indicação que um evento eh uma intrusão que esta ocorrendo ou ja ocorreu.O detector de intrusões baseado em series temporais teve como resultado preliminar uma demostração que a utilização de series temporais para a detecção de ataques, apresentam resultados satisfatórios para a detecção de um ataque e em pouco consumir de tempo de processamento.
 
 
 % ----------------------------------------------------------
@@ -371,5 +372,5 @@ Heidelberg, 2004, pp. 212-219
 % Revisao Bibliografica
 %[1] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_02_artigo.pdf
 %[2] Art019_ssi04.pdf
-
+%[3] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_01_resumo.pdf
 \end{document}
