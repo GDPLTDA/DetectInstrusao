@@ -7,3 +7,11 @@ node_modules/
 **/*.idx
 **/*.lof
 **/*.bak
+**/*.brf
+**/*.lof
+**/*.out.ps
+**/*.synctex.gz
+**/*.idx
+**/*.bbl
+**/*.blg
+**/*.dvi
