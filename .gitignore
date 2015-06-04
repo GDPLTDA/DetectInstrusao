@@ -16,3 +16,4 @@ node_modules/
 **/*.blg
 **/*.dvi
 **/tex/**/*.pdf
+**/*.fuse_*
