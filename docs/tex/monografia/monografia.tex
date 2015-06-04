@@ -296,8 +296,10 @@ Por fim um cronograma de controle sobre como prosseguira a segunda etapa deste t
 %\addcontentsline{toc}{chapter}{Revisão de Literatura}
 % ----------------------------------------------------------
 
+Um trabalho feito na Information Systems Security Bureau(Miroslav Stampar,2014)[1], fez um comparativo de técnicas publicas entre os anos de 2010 e 2014 para a detecção de intrusão, a pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina e inteligencia artificial comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-area importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI e AI utilizada para a detecção de intrusão.Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferentes algoritmos de inteligencia artificial e aprendizado de maquina como Redes Neurais Artificiais,Logica Fuzzy, Algoritmo Genético, Arvore de Decisões,etc.A pesquisa mostrar que redes neurais artificiais são os algoritmos de inteligencia artificial mais populares entres as publicações,mas com uma pequena queda no ultimo ano. Algoritmo Genético, K-vizinhos mais próximos e arvore de decisão ficam muito próximos, quase empatando no segundo lugar. O texto conclui que inteligencia artificial desempenha um papel substancial no estudo de inteligencia artificial e redes neurais são as mais populares, mas pesquisa nessa área são necessárias por que ha muitos resultados promissores dos algoritmos e especialmente a area que utiliza a combinação entre eles.
+
 Em uma trabalho em conjunto do Departamento de Automacao e Sistemas da Universidade Federal de Santa Catarina (UFSC) 
-(Paulo M. Mafra,Joni da Silva Fraga,Vinícius Moll,2008)[1] e com a Pontifícia Universidade Católica do Paraná (PUC-PR)(Altair Olivo Santin,2008)
+(Paulo M. Mafra,Joni da Silva Fraga,Vinícius Moll,2008)[2] e com a Pontifícia Universidade Católica do Paraná (PUC-PR)(Altair Olivo Santin,2008)
 [1], foi desenvolvido um sistema multi-camadas chamado de POLVO-IIDS, utilizando redes neurais de Kohonen, que classifica os dados de forma
 genérica comportamentos considerados normais ou anômalo e para cada classe de ataque foi utilizada uma
 rede neural do tipo Support Vector Machine(SVM) especializada na detecção da classe correspondente e tendo como saída a indicação de trafego normal ou atividade maliciosa.
@@ -305,10 +307,10 @@ A ideia de utilizar outra rede neural é utilizada para minimizar o numero de fa
 apenas duas categorias trafego normal ou anomalia.O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9,
 mas no POLVO-IIDS, foi utilizado de 0,2 a 0,8 para evitar erro de algum possível ataque. O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas,mostrando que o modelo POLVO-IIDS é um modelo eficiente.
 
-Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro(Renato Maia Silva,Marco Antonio Grivet M. Maia)[2], demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
+Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro(Renato Maia Silva,Marco Antonio Grivet M. Maia)[3], demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
 utilizando 4 redes, apenas uma utiliza as 41 categorias diferentes, as outras 3 utilizam apenas 9 categorias básicas do TCP-IP, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias e a segunda rede com apenas 9 categorias com apenas uma saída, identificando como 1 ataque ou -1 normal, a terceira com apenas uma saída e 9 categorias, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. As taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5% na sua taxa de acertos.
 
-Na Universidade Federal de Santa Maria(Bruno Lopes Dalmazo, Francisco Vogt, Tiago Perlin, Raul Ceretta Nunes ,2008)[3],utilizando serie temporal que eh um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.A fonte de informação representada por um coletor associado a um host, rede ou segmento de rede.Analise sendo parte da SDI que verifica eventos derivados da fonte de informação onde eh determinada a indicação que um evento eh uma intrusão que esta ocorrendo ou ja ocorreu.O detector de intrusões baseado em series temporais teve como resultado preliminar uma demostração que a utilização de series temporais para a detecção de ataques, apresentam resultados satisfatórios para a detecção de um ataque e em pouco consumir de tempo de processamento.
+Na Universidade Federal de Santa Maria(Bruno Lopes Dalmazo, Francisco Vogt, Tiago Perlin, Raul Ceretta Nunes ,2008)[4],utilizando serie temporal que eh um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.A fonte de informação representada por um coletor associado a um host, rede ou segmento de rede.Analise sendo parte da SDI que verifica eventos derivados da fonte de informação onde eh determinada a indicação que um evento eh uma intrusão que esta ocorrendo ou ja ocorreu.O detector de intrusões baseado em series temporais teve como resultado preliminar uma demostração que a utilização de series temporais para a detecção de ataques, apresentam resultados satisfatórios para a detecção de um ataque e em pouco consumir de tempo de processamento.
 
 
 % ----------------------------------------------------------
@@ -343,7 +345,8 @@ Na Universidade Federal de Santa Maria(Bruno Lopes Dalmazo, Francisco Vogt, Tiag
 
 
 % Revisao Bibliografica
-%[1] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_02_artigo.pdf
-%[2] Art019_ssi04.pdf
-%[3] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_01_resumo.pdf
+%[1] http://www.fer.unizg.hr/_download/repository/KDI,_Miroslav_Stampar.pdf
+%[2] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_02_artigo.pdf
+%[3] http://www.linorg.cirp.usp.br/SSI/SSI2004/Artigos/Art019_ssi04.pdf
+%[4] http://sbseg2008.inf.ufrgs.br/proceedings/data/pdf/st02_01_resumo.pdf
 \end{document}
