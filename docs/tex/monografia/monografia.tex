@@ -302,7 +302,7 @@ genérica comportamentos considerados normais ou anômalo e para cada classe de 
 A ideia de utilizar outra rede neural é utilizada para minimizar o numero de falsos positivos, pois com apenas um tipo de ataque para classifica, aumenta a precisão para identificar apenas duas categorias trafego normal ou anomalia.O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9,mas no POLVO-IIDS, foi utilizado de 0,2 a 0,8 para evitar erro de algum possível ataque. O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas,mostrando que o modelo POLVO-IIDS é um modelo eficiente.
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
-utilizando 4 redes, apenas uma utiliza as 41 categorias diferentes, as outras 3 utilizam apenas 9 categorias básicas do TCP-IP, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias e a segunda rede com apenas 9 categorias com apenas uma saída, identificando como 1 ataque ou -1 normal, a terceira com apenas uma saída e 9 categorias, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. As taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5% na sua taxa de acertos.
+utilizando 4 redes, apenas uma utiliza as 41 categorias diferentes, as outras 3 utilizam apenas 9 categorias básicas do TCP-IP, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias e a segunda rede com apenas 9 categorias com apenas uma saída, identificando como 1 ataque ou -1 normal, a terceira com apenas uma saída e 9 categorias, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. As taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5\% na sua taxa de acertos.
 
 
 Na Universidade Federal de Santa Maria \cite{Dalmazo},utilizando serie temporal que eh um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.A fonte de informação representada por um coletor associado a um host, rede ou segmento de rede.Analise sendo parte da SDI que verifica eventos derivados da fonte de informação onde eh determinada a indicação que um evento eh uma intrusão que esta ocorrendo ou ja ocorreu.O detector de intrusões baseado em series temporais teve como resultado preliminar uma demostração que a utilização de series temporais para a detecção de ataques, apresentam resultados satisfatórios para a detecção de um ataque e em pouco consumir de tempo de processamento.
@@ -313,6 +313,21 @@ Na Universidade Federal de Santa Maria \cite{Dalmazo},utilizando serie temporal 
 \chapter[Proposta]{Proposta}
 %\addcontentsline{toc}{chapter}{Metodologia}
 % ----------------------------------------------------------
+
+Será implementada na próxima etapa desse trabalho um modelo para Detecção e prevenção de intrusão fazendo uso de técnicas de inteligência artificial, especificamente redes neurais artificiais, utilizar suas características de reconhecimento de padrões e generalização para realizar a classificação dos eventos ocorridos em redes de computadores, classificando-os em normais ou intrusivos.
+
+A principio sera utilizada uma RNA do tipo \textit{feed-foward}, com três camadas apenas, uma de entrada, uma intermediaria e uma de saída. Os dados serão passados para a camada de entrada, processados pela rede e classificados como uma das cinco classes da camada de saída. Estas sendo Normal, DoS, U2R, R2L e Probe.  
+
+Sera desenvolvido um modelo com foco no treinamento da RNA, a principio para aprender os pesos da rede em multicamadas sera usado o algorítimo de \textit{backpropagation} com a regra de atualização de peso do gradiente descendente.
+
+Desse ponto serão mensurados alguns testes a partir da abordagem do POLVO-IIDS \cite{polvo1}, no qual usaremos N redes, onde cada rede é responsável para identificar apenas um tipo de ataque, para posteriormente agregar os resultados e identificar a intrusão.
+
+Outra abordagem que sera abordada é a de clusterização \cite{Surana}, separando o \textit{dataset} de treino em N \textit{subsets}, cada um sera utilizado para realizar o treinamento de uma rede neural, para no final outra rede neural realizar a agregação dos resultados destas N redes.
+
+ 
+Pretende-se analisar a viabilidade de aplicação destas abordagems, bem como
+detalhar suas vantagens ou desvantagens em relação a métodos convencionais de
+detecção de intrusão.
 
 
 % ----------------------------------------------------------
