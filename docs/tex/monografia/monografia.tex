@@ -231,8 +231,8 @@
 Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes sobre quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
 ataques acabou despertando interesse por ferramentas automatizadas para detectar ataques e analisar formas de aprimorar as técnicas atuais para tal.
 
-As ferramentas de detecção de intrusão são chamadas de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em um rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo desta forma uma ferramenta passiva.
-Existem as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisam o trafego e os eventos de uma rede, porem reagem de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa .
+As ferramentas de detecção de intrusão são chamadas de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em uma rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo desta forma uma ferramenta passiva.
+Existem as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisam o trafego e os eventos de uma rede, porem reagem de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa.
 
 Podemos classificar os IDS da seguinte forma.
 
@@ -245,7 +245,7 @@ Baseado em abuso ou anomalia, onde por anomalia o sistema identifica comportamen
 A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (IA), entre as varias técnicas conhecidas de IA, a que tem tido melhores resultados e consequentemente mais usada é a de Redes Neurais Artificiais (RNA)\cite{Jake-Ryan}\cite{Stampar}.
 
 As RNA são uma classe de algorítimos para aprendizado de maquina (AM), usada para realizar classificação de dados. A rede neural é treinada de forma a dar mais importância para as principais características de uma determinada instancia de um problema, para ajudar a classificar os dados que ainda estão por vir. 
-RNAs tem sido utilizadas com sucesso na detecção de intrusão \cite{Zhang} \cite{Tong} \cite{Wonil}, porem ela necessita de uma quantidade substancial de dados para realizar o treinamento, a partir desse treinamento que ela tera a capacidade de identificar os padrões para posteriormente receber os dados novos para classificação.
+RNAs tem sido utilizadas com sucesso na detecção de intrusão \cite{Zhang} \cite{Tong} \cite{Wonil}, porem elas necessitam de uma quantidade substancial de dados para realizar o treinamento, a partir desse treinamento que ela passara a ter capacidade de identificar os padrões para posteriormente receber os dados novos para classificação.
 
 
 \section{Motivação}
@@ -269,7 +269,7 @@ Para isso sera necessário, gerar uma base em um ambiente controlado para testes
 
 Utilizaremos a base de dados de trafego em rede KDD Cup 99, por ser uma das bases mais completas e amplamente utilizada nos testes de IDS, sera essencial para se realizar uma comparação consistente de resultados.
 
-Para gerar nossa base mais especifica iremos monitorar um ambiente de rede durante um período, no qual serão realizados alguns ataques controlados periodicamente, sera gerado um log que usaremos na nosso sistema.
+Para gerar nossa base mais especifica iremos monitorar um ambiente de rede durante um período de tempo, no qual serão realizados alguns ataques controlados periodicamente, deste sera gerado um log que usaremos no nosso sistema.
 
 Desenvolver uma solução para analise dos pacotes e eventos de uma rede, esta sera desenvolvida em Go, utilizara RNA para classificar as atividades na rede.
 
@@ -296,50 +296,55 @@ Por fim um cronograma de controle sobre como prosseguira a segunda etapa deste t
 
 Um trabalho feito na Information Systems Security Bureau \cite{Stampar}, fez um comparativo de técnicas publicas entre os anos de 2010 e 2014 para a detecção de intrusão.
 
-A pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina(ML) e inteligencia artificial(AI) comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-area importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI e inteligencia artificial utilizada para a detecção de intrusão.
+A pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina(ML) e inteligencia artificial(AI) comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-área importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI utilizada para a detecção de intrusão.
 
-Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferentes algoritmos de inteligencia artificial e aprendizado de maquina como Redes Neurais Artificiais,Logica Fuzzy, Algoritmo Genético, Arvore de Decisões,etc. A pesquisa mostrar que redes neurais artificiais são os algoritmos de inteligencia artificial mais populares entres as publicações, mas com uma pequena queda no ultimo ano. Algoritmo Genético, K-vizinhos mais próximos e arvore de decisão ficam muito próximos, quase empatando no segundo lugar.
+Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferentes algoritmos de inteligencia artificial e aprendizado de maquina como Redes Neurais Artificiais, Logica Fuzzy, Algoritmo Genético, Arvore de Decisões, etc. A pesquisa mostrar que algorítimos com base em redes neurais artificiais são os algoritmos de inteligencia artificial mais popular entre as publicações, mesmo com uma pequena queda em seu uso no ultimo ano. Algoritmo Genético, K-vizinhos mais próximos e arvore de decisão ficam muito próximos, quase empatando no segundo lugar.
 
-O texto conclui que inteligencia artificial desempenha um papel substancial no estudo de detecção de intrusão e redes neurais são as mais populares,explicando que a pesquisa nessa área é muito necessária, por que ha muitos resultados promissores dos algoritmos e especialmente a área que utiliza a combinação entre diferentes algoritmos.
+O artigo conclui que inteligencia artificial desempenha um papel substancial no estudo de detecção de intrusão, redes neurais artificiais  são as mais populares, e que a pesquisa nessa área ainda é muito necessária, ha muitos resultados promissores nesses algorítimos,  especialmente em abordagens hibridas, nos quais se utiliza a combinação entre técnicas diferentes.
 
 
-No trabalho \cite{Marley}, Marley da uma visão geral sobre Redes Neurais Artificiais(RNA), explicando que a expressão "rede neural" é a tentativa de representar a capacidade que cérebro humano possui de reconhecer,associar e generalizar padrões, sendo as principais áreas atuação, são para a classificação de padrões e previsão.
+No trabalho \cite{Marley}, Marley da uma visão geral sobre Redes Neurais Artificiais(RNA), explicando que a expressão "rede neural" é a tentativa de representar a capacidade que cérebro humano possui de reconhecer, associar e generalizar padrões, sendo as principais áreas de atuação para a classificação de padrões e previsão.
 
-A modelagem de uma rede neural consiste em 3 etapas: Treinamento e Aprendizado, obtido pelo ambiente gerador dos dados, Associação, obtido pelo reconhecimento de padrões distintos e Generalização, é relacionado a capacidade da rede de reconhecer com sucesso o ambiente que origina os dados e não propriamente os dados utilizados no treinamento.
+A modelagem de uma rede neural consiste em três etapas: (1) Treinamento e Aprendizado, obtido pelo ambiente gerador dos dados, (2) Associação, obtido pelo reconhecimento de padrões distintos e (3) Generalização, relacionado a capacidade da rede de reconhecer com sucesso o ambiente que origina os dados, não propriamente os dados utilizados no treinamento.
 
-O conhecimento é passado por um algoritmo de treinamento e aprendizado é transformado e armazenado nas conexões. 
+O conhecimento é passado por um algoritmo de treinamento e aprendizado, este é transformado e armazenado nas conexões. 
 O aprendizado é resultado de muitas apresentações de conjuntos de exemplos de treinamento.
 
-O treinamento pode ser dado de duas maneiras: batelada ou por ciclos, onde a atualização somente acontece depois da apresentação de todos os pesos e padrão a padrão ou incremental,onde a atualização é feita após a apresentação de cada novo padrão.O procedimento de treinamento pode ser classificado em dois tipos: supervisionado e não supervisionado.
+O treinamento pode ser dado de duas maneiras: (1)batelada ou ciclos, onde a atualização somente acontece depois da apresentação de todos os pesos e (2) padrão a padrão ou incremental,onde a atualização é feita após a apresentação de cada novo padrão. O procedimento de treinamento pode ser classificado em dois tipos: supervisionado e não supervisionado.
 
 Existem basicamente dois tipos  de arquiteturas ou topologia de redes neurais: redes não concorrentes e redes concorrentes.
+Redes não concorrentes são aqueles que não recebem atualização das suas saídas para suas entradas, organizando sua estrutura em  uma ou múltiplas camadas. 
+Feedfoward é um tipo de rede não concorrente,  o sinal é sempre propagado para a frente, da entrada para a saída. 
 
-Redes não concorrentes são aqueles que não recebem atualização das suas saídas para suas entradas,organizando sua estrear em apenas uma única camada ou múltiplas camada. Feedfoward é uma rede não concorrente por que o sinal é sempre propagado para a frente, da entrada para a saída.Redes concorrentes são redes com a atualização das saídas para as entradas, não tendo obrigatoriamente sua estrutura organizadas por camadas e podendo ter interligações entre neurônios da mesma camada, se estiver organizada em camadas. 
-
-
-No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um sistema multi-camadas chamado de POLVO-IIDS, utilizando redes neurais de Kohonen, que classifica os dados de forma genérica comportamentos considerados normais ou anômalo e para cada classe de ataque foi utilizada um algoritmo de inteligencia artificial do tipo Support Vector Machine(SVM) especializada na detecção da classe correspondente e tendo como saída a indicação de trafego normal ou atividade maliciosa.
-A ideia de utilizar outra rede neural é utilizada para minimizar o numero de falsos positivos, pois com apenas um tipo de ataque para classifica, aumenta a precisão para identificar apenas duas categorias trafego normal ou anomalia.O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9,mas no POLVO-IIDS, foi utilizado de 0,2 a 0,8 para evitar erro de algum possível ataque. O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas,mostrando que o modelo POLVO-IIDS é um modelo eficiente.
+Redes concorrentes são redes com a atualização das saídas para as entradas, não tendo obrigatoriamente sua estrutura organizada por camadas e podendo ter interligações entre neurônios da mesma camada case esteja organizada em camadas. 
 
 
-Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demostra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
-utilizando 4 redes, apenas uma utiliza as 41 categorias diferentes, as outras 3 utilizam apenas 9 categorias básicas do TCP-IP, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias e a segunda rede com apenas 9 categorias com apenas uma saída, identificando como 1 ataque ou -1 normal, a terceira com apenas uma saída e 9 categorias, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. 
+No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um sistema multi-camadas chamado de POLVO-IIDS, utilizando redes neurais de Kohonen, que classifica os dados de forma genérica, comportamentos considerados normais ou anômalos e para cada classe de ataque foi utilizada um algoritmo de inteligencia artificial do tipo Support Vector Machine(SVM) especializada na detecção da classe correspondente e tendo como saída a indicação de trafego normal ou atividade maliciosa.
+A ideia de utilizar outra rede neural é para minimizar o numero de falsos positivos, com apenas um tipo de ataque para classificar, aumenta a precisão para identificar apenas duas categorias, trafego normal ou anomalia.
+
+O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9, mas no POLVO-IIDS, foi utilizado de 0.2 a 0.8 para evitar erros de margem. 
+O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas, mostrando que o modelo POLVO-IIDS é um modelo eficiente.
+
+
+Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
+utilizando 4 redes,  uma utiliza as 41 categorias disponíveis, as outras 3 utilizam apenas 9 categorias básicas, usando um intervalo de -1 a 1. A primeira rede utilizando todas as 41 categorias, a segunda e terceira rede com apenas 9 categorias e uma saída, identificando como 1 sendo ataque ou -1 atividade normal, indicando como -1 normal, 0 neptune ou 1 smurf e a ultima com 4 saídas e 9 categorias, indicando (-1 1 1 1) normal,(1 -1 1 1) neptune, (1 1 -1 1) back e (1 1 1 -1) smurf. 
 
 As taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5\% na sua taxa de acertos.
 
-Na Universidade Federal de Santa Maria \cite{Dalmazo},utilizando serie temporal que é um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.
+Na Universidade Federal de Santa Maria \cite{Dalmazo}, utilizando serie temporal, um modelo matemático para apresentar amostragens periódicas que apresentam dependência entre as amostras, classificando os sistemas de detecção de intrusão em três componentes fundamentais: fonte de informação, analise e resposta.
 
 A fonte de informação representada por um coletor associado a um host, rede ou segmento de rede. Analise sendo parte do IDS que verifica eventos derivados da fonte de informação onde eh determinada a indicação que um evento eh uma intrusão que esta ocorrendo ou ja ocorreu.
 
 O detector de intrusões baseado em series temporais teve como resultado preliminar uma demostração que a utilização de series temporais para a detecção de ataques, apresentam resultados satisfatórios para a detecção de um ataque e em pouco consumir de tempo de processamento.
 
-No trabalho feito na universidade de Waterloo no canada\cite{Chunlin},foi apresentado duas técnicas de redes neurais baseados em hierarquia para IDS,hierarquia em series e hierarquia paralela, onde o objeto para a detecção de ataques de abuso e anomalia em tempo real sem a interrupção humana.
+No trabalho feito na universidade de Waterloo no canada\cite{Chunlin},foi apresentado duas técnicas de redes neurais baseados em hierarquia para IDS, hierarquia em series e hierarquia paralela, onde o objeto para a detecção de ataques de abuso e anomalia em tempo real sem a interrupção humana.
 
 Usando dois pré-requisitos para redes neurais hierarquias. O primeiro, cada classificação individual deve acertar seu desempenho, caso contrario,o erro é enviado para os níveis acima, acumulando e influenciados os níveis mais baixos. A taxa de detecção e de falso positivo são os principais indicadores de desempenho. 
 
 A segunda, as classificações,basicamente, podem ser dividas em grupos seguindo alguns critérios, cada grupo pode ser associado para seu própria classificação, então as classificações ou sua saída pode ser combinada em conjuntos.
 
-O artigo conclui em seus resultados, uma ótima habilidade para detectar instruções conhecidas e desconhecidas com um curte período de tempo para o treinamento,uma alta taxa de detecção e um baixo índice de falsos positivos.
-O IDS de hierarquia de series conseguiu monitorar em tempo real o trafego na rede, treinando automaticamente novas intrusos modificando sua estrutura para novas classificações. O IDS de hierarquia paralela, resolveu em partes, os problemas da hierarquia em series e sendo mais rápido para ser executado.
+O artigo conclui em seus resultados, uma ótima habilidade para detectar instruções conhecidas e desconhecidas com um curte período de tempo para o treinamento, uma alta taxa de detecção e um baixo índice de falsos positivos.
+O IDS de hierarquia de series conseguiu monitorar em tempo real o trafego na rede, treinando automaticamente novas intrusos modificando sua estrutura para novas classificações. O IDS de hierarquia paralela, resolveu em partes, os problemas da hierarquia em series, sendo mais rápido para ser executado.
 
 
 % ----------------------------------------------------------
