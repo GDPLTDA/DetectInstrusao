@@ -198,9 +198,8 @@
   \item[IDS] Intrusion Detection System
   \item[IPS] Intrusion Prevention System
   \item[NIDS] Network Intrusion Detection System
-  \item[IA] Inteligência Artificial
   \item[RNA] Rede Neural Artificial
-  \item[IM] Inteligencia de maquina
+  \item[SVM] Suport Vector Machine
   \item[AI] Artificial Intelligence
   \item[ML] Machine Learning
 \end{siglas}
@@ -242,7 +241,7 @@ Online ou Offline, onde um é capaz de detectar e marcar um intruso enquanto a e
 
 Baseado em abuso ou anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
 
-A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (IA), entre as varias técnicas conhecidas de IA, a que tem tido melhores resultados e consequentemente mais usada é a de Redes Neurais Artificiais (RNA)\cite{Jake-Ryan}\cite{Stampar}.
+A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (AI), entre as varias técnicas conhecidas de AI, a que tem tido melhores resultados e consequentemente mais usada é a de Redes Neurais Artificiais (RNA)\cite{Jake-Ryan}\cite{Stampar}.
 
 As RNA são uma classe de algorítimos para aprendizado de maquina (AM), usada para realizar classificação de dados. A rede neural é treinada de forma a dar mais importância para as principais características de uma determinada instancia de um problema, para ajudar a classificar os dados que ainda estão por vir. 
 RNAs tem sido utilizadas com sucesso na detecção de intrusão \cite{Zhang} \cite{Tong} \cite{Wonil}, porem elas necessitam de uma quantidade substancial de dados para realizar o treinamento, a partir desse treinamento que ela passara a ter capacidade de identificar os padrões para posteriormente receber os dados novos para classificação.
@@ -256,7 +255,7 @@ Este cenário é a principal motivação deste trabalho que consiste em propor, 
 
 \section{Justificativa}
 
-Muitas técnicas de IA tem sido utilizadas para IDS/IPS, a mais utilizada e a RNA\cite{Stampar}, porem existem tipos de ataques que não são facilmente detectados, por ocorrerem com menor frequência, tendo poucas entradas para o treino da RNA\cite{CeC}, resultando em mais erros,  por esse motivo escolhemos trabalhar de forma a aprimorar seu resultados. 
+Muitas técnicas de AI tem sido utilizadas para IDS/IPS, a mais utilizada e a RNA\cite{Stampar}, porem existem tipos de ataques que não são facilmente detectados, por ocorrerem com menor frequência, tendo poucas entradas para o treino da RNA\cite{CeC}, resultando em mais erros,  por esse motivo escolhemos trabalhar de forma a aprimorar seu resultados. 
 
 
 \section{Objetivos}
@@ -296,7 +295,7 @@ Por fim um cronograma de controle sobre como prosseguira a segunda etapa deste t
 
 Um trabalho feito na Information Systems Security Bureau \cite{Stampar}, fez um comparativo de técnicas publicas entre os anos de 2010 e 2014 para a detecção de intrusão.
 
-A pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina(ML) e inteligencia artificial(AI) comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-área importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI utilizada para a detecção de intrusão.
+A pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina (ML) e inteligencia artificial (AI) comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-área importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI utilizada para a detecção de intrusão.
 
 Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferentes algoritmos de inteligencia artificial e aprendizado de maquina como Redes Neurais Artificiais, Logica Fuzzy, Algoritmo Genético, Arvore de Decisões, etc. A pesquisa mostrar que algorítimos com base em redes neurais artificiais são os algoritmos de inteligencia artificial mais popular entre as publicações, mesmo com uma pequena queda em seu uso no ultimo ano. Algoritmo Genético, K-vizinhos mais próximos e arvore de decisão ficam muito próximos, quase empatando no segundo lugar.
 
@@ -324,6 +323,9 @@ A ideia de utilizar outra rede neural é para minimizar o numero de falsos posit
 
 O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9, mas no POLVO-IIDS, foi utilizado de 0.2 a 0.8 para evitar erros de margem. 
 O trabalho indica de teve uma melhora nos resultados obtidos relacionados a outras literaturas, mostrando que o modelo POLVO-IIDS é um modelo eficiente.
+
+Shraddha Surana propôs um modelo \cite{Surana} utilizando clusterização Fuzzy e Redes neurais artificiais, onde o dataset de treinamento é dividido em N subsets, que são distribuídos em N redes neurais intermediarias, com mais uma camada de RNA que agrega os resultados das redes intermediarias para a partir dai realizar a classificação de novos dados. Esta abordagem conseguiu uma taxa de detecção de 81,6\%.
+
 
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais,
@@ -356,13 +358,15 @@ O IDS de hierarquia de series conseguiu monitorar em tempo real o trafego na red
 
 Será implementada na próxima etapa desse trabalho um modelo para Detecção e prevenção de intrusão fazendo uso de técnicas de inteligência artificial, especificamente redes neurais artificiais, utilizar suas características de reconhecimento de padrões e generalização para realizar a classificação dos eventos ocorridos em redes de computadores, classificando-os em normais ou intrusivos.
 
+Sera desenvolvida uma aplicação baseada no modelo, ela ira monitorar os pacotes em uma rede de computadores do tipo IPv4, este ira classificar e prevenir atividades maliciosas.
+
 A principio sera utilizada uma RNA do tipo \textit{feed-foward}, com três camadas apenas, uma de entrada, uma intermediaria e uma de saída. Os dados serão passados para a camada de entrada, processados pela rede e classificados como uma das cinco classes da camada de saída. Estas sendo Normal, DoS, U2R, R2L e Probe.  
 
-Sera desenvolvido um modelo com foco no treinamento da RNA, a principio para aprender os pesos da rede em multicamadas sera usado o algorítimo de \textit{backpropagation} com a regra de atualização de peso do gradiente descendente.
+O modelo terá foco no treinamento da RNA, a principio para aprender os pesos da rede em multicamadas sera usado o algorítimo de \textit{backpropagation} com a regra de atualização de peso do gradiente descendente.
 
-Desse ponto serão mensurados alguns testes a partir da abordagem do POLVO-IIDS \cite{polvo1}, no qual usaremos N redes, onde cada rede é responsável para identificar apenas um tipo de ataque, para posteriormente agregar os resultados e identificar a intrusão.
+Desse ponto serão mensurados alguns testes a partir da abordagem do POLVO-IIDS \cite{polvo1}, no qual usaremos uma rede para classificação, e quatro SVM para detecção de anomalias.
 
-Outra abordagem que sera abordada é a de clusterização \cite{Surana}, separando o \textit{dataset} de treino em N \textit{subsets}, cada um sera utilizado para realizar o treinamento de uma rede neural, para no final outra rede neural realizar a agregação dos resultados destas N redes.
+Outra abordagem é a de clusterização \cite{Surana}, separando o \textit{dataset} de treino em N \textit{subsets}, cada um sera utilizado para realizar o treinamento de uma rede neural, para no final outra rede  realizar a agregação dos resultados destas N redes.
 
  
 Pretende-se analisar a viabilidade de aplicação destas abordagems, bem como
