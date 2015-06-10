@@ -330,11 +330,12 @@ Shraddha Surana propôs um modelo \cite{Surana} utilizando clusterização Fuzzy
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais.
 
-Utilizando 4 redes, é testado diferentes entradas e saídas,de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponiveis.
+Utilizando 4 redes e no máximo 4 saídas possíveis, é testado diferentes entradas e saídas,de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponiveis.
+As 4 são categorizas como Normal ou entre 3 tipos de ataque DoS Smurf, Nepture ou Back.
 A primeira rede utiliza 9 entradas e uma saídas, onde a saída pode ser -1 para normal e 1 para ataque.
 A segunda rede utiliza todas as 41 entradas e uma saída, onde a saída pode ser -1 para normal e 1 para ataque.
 A terceira utliza nove entradas e uma saida, onde a saída pode ser -1 para normal,0 para Neptune e 1 Smurf.
-A quarta e ultima rede, usa 9 entradas e quatro saídas que são ornizadas em (-1 1 1 1) para normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
+A quarta e ultima rede, usa 9 entradas e quatro saídas que são ornizadas em (-1 1 1 1) para Normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
 
 Utilizando a base de dados KDD Cup 1999 para o treinamento das redes neurais, os resultados foram bons e com baixa taxa de falsos positivos, as taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5\% na sua taxa de acertos contra.
 
