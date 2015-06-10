@@ -202,6 +202,8 @@
   \item[SVM] Suport Vector Machine
   \item[AI] Artificial Intelligence
   \item[ML] Machine Learning
+  \item[PNN] Rede Neural Probabilística
+  \item[MLP] Multi-layered Perceptron  
 \end{siglas}
 % ---
 
@@ -311,14 +313,14 @@ O aprendizado é resultado de muitas apresentações de conjuntos de exemplos de
 
 O treinamento pode ser dado de duas maneiras: (1)batelada ou ciclos, onde a atualização somente acontece depois da apresentação de todos os pesos e (2) padrão a padrão ou incremental,onde a atualização é feita após a apresentação de cada novo padrão. O procedimento de treinamento pode ser classificado em dois tipos: supervisionado e não supervisionado.
 
-Existem basicamente dois tipos  de arquiteturas ou topologia de redes neurais: redes não concorrentes e redes concorrentes.
-Redes não concorrentes são aqueles que não recebem atualização das suas saídas para suas entradas, organizando sua estrutura em  uma ou múltiplas camadas. 
-Feedfoward é um tipo de rede não concorrente,  o sinal é sempre propagado para a frente, da entrada para a saída. 
+Muitas abordagens de RNA tem sido implementadas e testadas para IDS, um sistema proposto por Ryan \cite{Ryan}, analisou  o comportamento de usuários individuais. O padrão de entrada foi então combinado com os perfis de usuário para identificar o utilizador (Um nó correspondente ao utilizador com um valor > 0,5 é atribuída a esse usuário). Um flag é gerado se nenhuma correspondência for encontrada,  essa é considerado como uma anomalia. No entanto, isto exigia grande quantidade de dados para treinar a rede para cada utilizador. Dados insuficientes para um usuário pode levar à falsos positivos para o comportamento desse usuário na rede. O sistema teve uma taxa de detecção de anomalia de 96\% e 7\% de falsos alarmes.
 
-Redes concorrentes são redes com a atualização das saídas para as entradas, não tendo obrigatoriamente sua estrutura organizada por camadas e podendo ter interligações entre neurônios da mesma camada case esteja organizada em camadas. 
+Cannady propôs um modelo chamado Multi-layered Perceptron (MLP) \cite{Cannady}, utilizando o algoritimo de \textit{backpropagation} ao invés de criar perfis individuais. Foi necessário 26.13 horas para completar com aproximadamente 98\% de acerto no conjunto de dados de treinamento e 97,5\% no conjunto de dados de teste.
 
+Devaraju e Ramakrishnan implementaram a  Rede Neural Probabilística (PNN) \cite{Devaraju} esta obteve desempenho melhor do que uma rede do tipo FeedForward e Radial Basis. No entanto, a PNN (precisão = 80,38\%) conseguiu ser apenas 0,02\% melhor do que a rede do tipo FeedForward (precisão = 80,4\%) nao sendo uma diferença significativa. A precisão do  Radial Basis é de 75,4\%.
+Resultados mais baixos que as abordagens que vimos até agora.
 
-No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um sistema multi-camadas chamado de POLVO-IIDS, utilizando redes neurais de Kohonen, que classifica os dados de forma genérica, comportamentos considerados normais ou anômalos e para cada classe de ataque foi utilizada um algoritmo de inteligencia artificial do tipo Support Vector Machine(SVM) especializada na detecção da classe correspondente e tendo como saída a indicação de trafego normal ou atividade maliciosa.
+No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um sistema multi-camadas chamado de POLVO-IIDS, utilizando redes neurais de Kohonen, que classifica os dados de forma genérica, comportamentos considerados normais ou anômalos, para cada classe de ataque foi utilizada um algoritmo de inteligencia artificial do tipo Support Vector Machine (SVM) especializada na detecção da classe correspondente e tendo como saída a indicação de trafego normal ou atividade maliciosa.
 A ideia de utilizar outra rede neural é para minimizar o numero de falsos positivos, com apenas um tipo de ataque para classificar, aumenta a precisão para identificar apenas duas categorias, trafego normal ou anomalia.
 
 O valor de cada neurônio pode variar de 0 a 1, normalmente em redes neurais de Kohonen algum neurônio deve estar de 0,1 a 0,9, mas no POLVO-IIDS, foi utilizado de 0.2 a 0.8 para evitar erros de margem. 
@@ -329,16 +331,15 @@ Shraddha Surana propôs um modelo \cite{Surana} utilizando clusterização Fuzzy
 
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais.
-
-Utilizando 4 redes, é testado diferentes entradas e saídas,de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponiveis.
-A primeira rede utiliza 9 entradas e uma saídas, onde a saída pode ser -1 para normal e 1 para ataque.
+Utilizando 4 redes, é testado diferentes entradas e saídas, de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponíveis.
+A primeira rede utiliza 9 entradas e uma saída, onde a saída pode ser -1 para normal e 1 para ataque.
 A segunda rede utiliza todas as 41 entradas e uma saída, onde a saída pode ser -1 para normal e 1 para ataque.
-A terceira utliza nove entradas e uma saida, onde a saída pode ser -1 para normal,0 para Neptune e 1 Smurf.
-A quarta e ultima rede, usa 9 entradas e quatro saídas que são ornizadas em (-1 1 1 1) para normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
+A terceira utiliza 9 entradas e uma saída, onde a saída pode ser -1 para normal, 0 para Neptune e 1 Smurf.
+A quarta e ultima rede, usa 9 entradas e quatro saídas que são organizadas em (-1 1 1 1) para normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
 
 Utilizando a base de dados KDD Cup 1999 para o treinamento das redes neurais, os resultados foram bons e com baixa taxa de falsos positivos, as taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5\% na sua taxa de acertos contra.
 
-No trabalho feito na universidade de Waterloo no canada\cite{Chunlin},foi apresentado duas técnicas de redes neurais baseados em hierarquia para IDS, hierarquia em series e hierarquia paralela, onde o objeto para a detecção de ataques de abuso e anomalia em tempo real sem a interrupção humana.
+No trabalho feito na universidade de Waterloo no canada\cite{Chunlin}, foi apresentado duas técnicas de redes neurais baseados em hierarquia para IDS, hierarquia em series e hierarquia paralela, onde o objeto para a detecção de ataques de abuso e anomalia em tempo real sem a interrupção humana.
 
 Usando dois pré-requisitos para redes neurais hierarquias. O primeiro, cada classificação individual deve acertar seu desempenho, caso contrario,o erro é enviado para os níveis acima, acumulando e influenciados os níveis mais baixos. A taxa de detecção e de falso positivo são os principais indicadores de desempenho. 
 
