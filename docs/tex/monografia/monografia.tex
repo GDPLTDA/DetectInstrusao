@@ -170,10 +170,10 @@
 
 % resumo em português
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
-\begin{resumo}
+%\begin{resumo}
    
- \textbf{Palavras-chaves}: IDS,Rede,Internet
-\end{resumo}
+ %\textbf{Palavras-chaves}: IDS,Rede,Internet
+%\end{resumo}
 
 % ---
 % inserir lista de ilustrações (figuras)
@@ -304,7 +304,7 @@ Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferen
 O artigo conclui que inteligencia artificial desempenha um papel substancial no estudo de detecção de intrusão, redes neurais artificiais  são as mais populares, e que a pesquisa nessa área ainda é muito necessária, ha muitos resultados promissores nesses algorítimos,  especialmente em abordagens hibridas, nos quais se utiliza a combinação entre técnicas diferentes.
 
 
-No trabalho \cite{Marley}, Marley da uma visão geral sobre Redes Neurais Artificiais(RNA), explicando que a expressão "rede neural" é a tentativa de representar a capacidade que cérebro humano possui de reconhecer, associar e generalizar padrões, sendo as principais áreas de atuação para a classificação de padrões e previsão.
+No trabalho de Marley  \cite{Marley}, é dada uma visão geral sobre Redes Neurais Artificiais(RNA), explicando que a expressão "rede neural" é a tentativa de representar a capacidade que cérebro humano possui de reconhecer, associar e generalizar padrões, sendo as principais áreas de atuação para a classificação de padrões e previsão.
 
 A modelagem de uma rede neural consiste em três etapas: (1) Treinamento e Aprendizado, obtido pelo ambiente gerador dos dados, (2) Associação, obtido pelo reconhecimento de padrões distintos e (3) Generalização, relacionado a capacidade da rede de reconhecer com sucesso o ambiente que origina os dados, não propriamente os dados utilizados no treinamento.
 
@@ -313,9 +313,9 @@ O aprendizado é resultado de muitas apresentações de conjuntos de exemplos de
 
 O treinamento pode ser dado de duas maneiras: (1)batelada ou ciclos, onde a atualização somente acontece depois da apresentação de todos os pesos e (2) padrão a padrão ou incremental,onde a atualização é feita após a apresentação de cada novo padrão. O procedimento de treinamento pode ser classificado em dois tipos: supervisionado e não supervisionado.
 
-Muitas abordagens de RNA tem sido implementadas e testadas para IDS, um sistema proposto por Ryan \cite{Ryan}, analisou  o comportamento de usuários individuais. O padrão de entrada foi então combinado com os perfis de usuário para identificar o utilizador (Um nó correspondente ao utilizador com um valor > 0,5 é atribuída a esse usuário). Um flag é gerado se nenhuma correspondência for encontrada,  essa é considerado como uma anomalia. No entanto, isto exigia grande quantidade de dados para treinar a rede para cada utilizador. Dados insuficientes para um usuário pode levar à falsos positivos para o comportamento desse usuário na rede. O sistema teve uma taxa de detecção de anomalia de 96\% e 7\% de falsos alarmes.
+Muitas abordagens de RNA tem sido implementadas e testadas para IDS, um sistema proposto por Ryan \cite{Ryan}, analisou  o comportamento de usuários individuais. O padrão de entrada foi então combinado com os perfis de usuário para identificar o utilizador (Um nó correspondente ao utilizador com um valor > 0,5 é atribuída a esse usuário). Um flag é gerado se nenhuma correspondência for encontrada,  este é considerado como uma anomalia. No entanto, isto exigia grande quantidade de dados para treinar a rede para cada utilizador. Dados insuficientes para um usuário pode levar à falsos positivos para o comportamento desse usuário na rede. O sistema teve uma taxa de detecção de anomalia de 96\% e 7\% de falsos alarmes.
 
-Cannady propôs um modelo chamado Multi-layered Perceptron (MLP) \cite{Cannady}, utilizando o algoritimo de \textit{backpropagation} ao invés de criar perfis individuais. Foi necessário 26.13 horas para completar com aproximadamente 98\% de acerto no conjunto de dados de treinamento e 97,5\% no conjunto de dados de teste.
+Cannady propôs um modelo chamado Multi-layered Perceptron (MLP) \cite{Cannady}, utilizando o algorítimo de \textit{backpropagation} ao invés de criar perfis individuais. Foi necessário 26.13 horas para completar com aproximadamente 98\% de acerto no conjunto de dados de treinamento e 97,5\% no conjunto de dados de teste.
 
 Devaraju e Ramakrishnan implementaram a  Rede Neural Probabilística (PNN) \cite{Devaraju} esta obteve desempenho melhor do que uma rede do tipo FeedForward e Radial Basis. No entanto, a PNN (precisão = 80,38\%) conseguiu ser apenas 0,02\% melhor do que a rede do tipo FeedForward (precisão = 80,4\%) nao sendo uma diferença significativa. A precisão do  Radial Basis é de 75,4\%.
 Resultados mais baixos que as abordagens que vimos até agora.
@@ -331,11 +331,13 @@ Shraddha Surana propôs um modelo \cite{Surana} utilizando clusterização Fuzzy
 
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais.
-Utilizando 4 redes, é testado diferentes entradas e saídas, de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponíveis.
-A primeira rede utiliza 9 entradas e uma saída, onde a saída pode ser -1 para normal e 1 para ataque.
+
+Utilizando 4 redes e no máximo 4 saídas possíveis, é testado diferentes composições, de forma a encontrar uma ideal maneira de treinamento de uma rede neural, utilizando as 41 categorias disponíveis.
+As 4 são categorizas como Normal ou entre 3 tipos de ataque DoS Smurf, Nepture ou Back.
+A primeira rede utiliza 9 entradas e uma saídas, onde a saída pode ser -1 para normal e 1 para ataque.
 A segunda rede utiliza todas as 41 entradas e uma saída, onde a saída pode ser -1 para normal e 1 para ataque.
-A terceira utiliza 9 entradas e uma saída, onde a saída pode ser -1 para normal, 0 para Neptune e 1 Smurf.
-A quarta e ultima rede, usa 9 entradas e quatro saídas que são organizadas em (-1 1 1 1) para normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
+A terceira utliza nove entradas e uma saida, onde a saída pode ser -1 para normal,0 para Neptune e 1 Smurf.
+A quarta e ultima rede, usa 9 entradas e quatro saídas que são ornizadas em (-1 1 1 1) para Normal,(1 -1 1 1) para Neptune,(1 1 -1 1) para Back e (1 1 1 -1) para Smurf.
 
 Utilizando a base de dados KDD Cup 1999 para o treinamento das redes neurais, os resultados foram bons e com baixa taxa de falsos positivos, as taxas de acertos foram acima de 90 por cento para todas as configurações testadas, a rede que teve um melhor resultado foi a terceira rede, tendo 97,5\% na sua taxa de acertos contra.
 
