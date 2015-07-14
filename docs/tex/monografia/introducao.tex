@@ -1,0 +1,71 @@
+
+\chapter[Introdução]{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
+% ----------------------------------------------------------
+Este trabalho trata-se de uma analise sobre  Sistemas de detecção de intrusão (SDI) e Sistemas de prevenção de intrusão (SPI) utilizando Redes Neurais Artificiais (RNA).
+Tem como titulo ""
+
+
+
+\section{Motivação}
+Esforços realizados para proporcionar segurança em ambientes computacionais, tem como motivação o fato de existirem riscos que podem comprometer a integridade, confiabilidade e disponibilidade da informação. 
+Esses riscos são avaliados de acordo com as chances do mesmo ocorrer e com os custos envolvidos para tratá-lo. Técnicas de defesa vêm sendo aprimoradas, porém ainda existem diversas limitações que as impedem de estarem efetivamente preparadas para o qualquer tipo de ataque \cite{CeC}, sendo assim necessário  soluções inovadoras para tratar os níveis de ameaças atuais e futuras. 
+Este cenário é a principal motivação deste trabalho que consiste em propor, implementar e mensurar resultados de uma solução para treinamento de RNA para detecção e prevenção de intrusão.
+
+
+\section{Contexto}
+
+Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes sobre quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
+ataques acabou despertando interesse por ferramentas automatizadas para detectar ataques e analisar formas de aprimorar as técnicas atuais para tal.
+
+As ferramentas de detecção de intrusão são chamadas de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em uma rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo desta forma uma ferramenta passiva.
+Existem as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisam o trafego e os eventos de uma rede, porem reagem de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa.
+
+Podemos classificar os IDS da seguinte forma.
+
+Baseado em Host ou rede, onde o primeiro faz uso de arquivos de log para cada computador individualmente e o segundo captura pacotes que trafegam na rede para analisar seu conteúdo.
+
+Online ou Offline, onde um é capaz de detectar e marcar um intruso enquanto a esta sendo realizada a intrusão, e o outro analisa registros após o evento ocorrer e indica que houve uma violação de segurança tinha ocorrido desde a última verificação, respectivamente.
+
+Baseado em abuso ou anomalia, onde por anomalia o sistema identifica comportamento fora do padrão, e por abuso compara as atividades na rede com comportamentos de ataques já conhecidos.
+
+A maioria dos métodos utilizados para detecção são baseados em inteligencia artificial (AI), entre as varias técnicas conhecidas de AI, a que tem tido melhores resultados e consequentemente mais usada é a de Redes Neurais Artificiais (RNA)\cite{Jake-Ryan}\cite{Stampar}.
+
+As RNA são uma classe de algorítimos para aprendizado de maquina (AM), usada para realizar classificação de dados. A rede neural é treinada de forma a dar mais importância para as principais características de uma determinada instancia de um problema, para ajudar a classificar os dados que ainda estão por vir. 
+RNAs tem sido utilizadas com sucesso na detecção de intrusão \cite{Zhang} \cite{Tong} \cite{Wonil}, porem elas necessitam de uma quantidade substancial de dados para realizar o treinamento, a partir desse treinamento que ela passara a ter capacidade de identificar os padrões para posteriormente receber os dados novos para classificação.
+
+
+
+
+\section{Justificativa}
+
+Muitas técnicas de AI tem sido utilizadas para IDS/IPS, a mais utilizada e a RNA\cite{Stampar}, porem existem tipos de ataques que não são facilmente detectados, por ocorrerem com menor frequência, tendo poucas entradas para o treino da RNA\cite{CeC}, resultando em mais erros,  por esse motivo escolhemos trabalhar de forma a aprimorar seus resultados. 
+
+
+\section{Objetivos}
+
+O objetivo deste trabalho é propor uma forma de aprimorar o sistema de aprendizado de redes neurais artificiais para detecção e prevenção de intrusão. 
+Para isso sera necessário, gerar uma base em um ambiente controlado para testes específicos, implementar uma solução de IPS/IDS que utilize RNA, implementar uma metodologia de treinamento, realizar o treino da RNA e por fim comparar resultados com outras técnicas de treinamento para RNA.
+
+
+\section{Método de trabalho}
+
+Utilizaremos a base de dados de trafego em rede KDD Cup 99\cite{KDDCup99}, por ser uma das bases mais completas e amplamente utilizada nos testes de IDS, sera essencial para se realizar uma comparação consistente de resultados.
+
+Para gerar nossa base mais especifica iremos monitorar um ambiente de rede durante um período de tempo, no qual serão realizados alguns ataques controlados periodicamente, deste sera gerado um log que usaremos no nosso sistema.
+
+Desenvolver uma solução para analise dos pacotes e eventos de uma rede, esta sera desenvolvida em Go, utilizara RNA para classificar as atividades na rede.
+
+Realizar treinamento em ambas as bases de dados, serão formas diversificadas de treinamento, sera feito uma comparação de acertos/erros e tempo necessário para treino.
+
+Faremos uma comparação de desempenho e efetividade de nossa solução e algumas que temos hoje.
+
+\section{Organização do trabalho}
+
+Este trabalho esta dividido em trés partes.
+Na próxima seção, sera apresentado o estado da arte, onde sera revisado a literatura sobre detecção e prevenção de intrusão utilizando RNA.
+
+Logo apos teremos a proposta  de forma mais detalhada do que é pretendido realizar na próxima etapa do trabalho.
+
+Por fim um cronograma de controle sobre como prosseguira a segunda etapa deste trabalho.
+

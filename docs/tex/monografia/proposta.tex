@@ -1,0 +1,21 @@
+
+\chapter[Proposta]{Proposta}
+%\addcontentsline{toc}{chapter}{Metodologia}
+% ----------------------------------------------------------
+
+Será implementada na próxima etapa desse trabalho um modelo para Detecção e prevenção de intrusão fazendo uso de técnicas de inteligência artificial, especificamente redes neurais artificiais, utilizar suas características de reconhecimento de padrões e generalização para realizar a classificação dos eventos ocorridos em redes de computadores, classificando-os em normais ou intrusivos.
+
+Será desenvolvida uma aplicação baseada no modelo, ela ira monitorar os pacotes em uma rede de computadores do tipo IPv4, este ira classificar e prevenir atividades maliciosas.
+
+A principio será utilizada uma RNA do tipo \textit{feed-foward}, com três camadas apenas, uma de entrada, uma intermediaria e uma de saída. Os dados serão passados para a camada de entrada, processados pela rede e classificados como uma das cinco classes da camada de saída. Estas sendo Normal, DoS, U2R, R2L e Probe.  
+
+O modelo terá foco no treinamento da RNA, a principio para aprender os pesos da rede em multicamadas sera usado o algorítimo de \textit{backpropagation} com a regra de atualização de peso do gradiente descendente.
+
+Desse ponto serão mensurados alguns testes a partir da abordagem do POLVO-IIDS \cite{polvo1}, no qual usaremos uma rede para classificação, e quatro SVM para detecção de anomalias.
+
+Outra abordagem é a de clusterização \cite{Surana}, separando o \textit{dataset} de treino em N \textit{subsets}, cada um sera utilizado para realizar o treinamento de uma rede neural, para no final outra rede  realizar a agregação dos resultados destas N redes.
+
+ 
+Pretende-se analisar a viabilidade de aplicação destas abordagens, bem como
+detalhar suas vantagens ou desvantagens em relação a métodos convencionais de
+detecção de intrusão.
