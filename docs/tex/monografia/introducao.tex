@@ -2,21 +2,60 @@
 \chapter[Introdução]{Introdução}
 %\addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
-Este trabalho trata-se de uma analise sobre  Sistemas de detecção de intrusão (SDI) e Sistemas de prevenção de intrusão (SPI) utilizando Redes Neurais Artificiais (RNA).
-Tem como titulo ""
+Este trabalho aborda Sistemas de detecção de intrusão (\monoIDS ou IDS) e Sistemas de prevenção de intrusão (\monoIPS ou IPS), explora a utilização de técnicas de inteligencia artificial e classificação com foco em Redes Neurais Artificiais (RNA). Com o titulo "\monoTitulo"  foi desenvolvido no Centro universitário Senac em comprimento dos requisitos para graduação em ciência da computação. Supervisionado pelo Prof. Dr. Eduardo Heredia.
 
-
-
+Desejamos abordar o funcionamento dos IDS atuais, suas limitações, como se comportam e a importância da utilização de técnicas de IA em seu escopo.
+	
 \section{Motivação}
-Esforços realizados para proporcionar segurança em ambientes computacionais, tem como motivação o fato de existirem riscos que podem comprometer a integridade, confiabilidade e disponibilidade da informação. 
-Esses riscos são avaliados de acordo com as chances do mesmo ocorrer e com os custos envolvidos para tratá-lo. Técnicas de defesa vêm sendo aprimoradas, porém ainda existem diversas limitações que as impedem de estarem efetivamente preparadas para o qualquer tipo de ataque \cite{CeC}, sendo assim necessário  soluções inovadoras para tratar os níveis de ameaças atuais e futuras. 
+
+A definição básica para um incidente de intrusão pode ser ações que comprometam os princípios da segurança da informação, estes são definidos como a Confidencialidade, Integridade e Disponibilidade de recursos computacionais e de rede \cite{whitman2011principles}. 
+
+Detecção de intrusão é o processo de se identificar e responder a essas atividades de intrusão. Como o aumento da utilização da internet para  as tarefas do dia dia tem se tornado mais comum, tendo crescimento tanto na quantidade de usuários quanto nas tarefas possíveis de serem realizadas, também temos um aumento no risco de incidentes de quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes reportados no ano de 2014 relativo a 2013. 
+
+Muitos informação sigilosa pode ser trafegada na rede, pessoas e empresas podem fazer transações bancarias, \textit{backup} de dados pessoais, informação de mercado, dentre outras. Em muitos casos o \monoFireWall não é suficiente para garantir a segurança. Também existem casos de usuários de dentro da rede que abusam de seus privilégios ou de ataques que simplesmente não são reconhecidos pelo sistema de detecção que esta monitorando.
+
+Incluímos alguns gráficos para demonstrar a difusão, motivações, técnicas e alvos por trás dos ataques registrados no ano de 2014:
+
+
+
+\begin{figure}
+	\begin{minipage}{.5\textwidth}
+	\includegraphics[scale=0.2]{Imagens/hackmageddon_trends.png}
+		\caption{Difusão}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\includegraphics[scale=0.2]{Imagens/hackmageddon_motivation.png}
+		\caption{Motivação}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\includegraphics[scale=0.2]{Imagens/hackmageddon_techniques.png}
+		\caption{Técnicas}
+	\end{minipage}
+	\begin{minipage}{.5\textwidth}
+		\includegraphics[scale=0.2]{Imagens/hackmageddon_targets.png}
+		\caption{Alvos}
+	\end{minipage}
+\end{figure}
+
+\begin{description} 
+	\item[Figura 1] . 
+	\item[Figura 2] .
+	\item[Figura 3] .
+	\item[Figura 4] The third etc 
+	\ldots 
+\end{description}
+
+Os riscos são avaliados de acordo com as chances de um quebra de segurança  ocorrer e com os custos envolvidos para tratá-lo. Técnicas de defesa vêm sendo aprimoradas, porém ainda existem diversas limitações que as impedem de estarem efetivamente preparadas para o qualquer tipo de ataque \cite{CeC}, sendo assim necessário  soluções inovadoras para tratar os níveis de ameaças atuais e futuras. 
+
+A necessidade de se proteger contra estes riscos de ataques acabou despertando interesse por ferramentas automatizadas para se detectá-los e preveni-los.
+
 Este cenário é a principal motivação deste trabalho que consiste em propor, implementar e mensurar resultados de uma solução para treinamento de RNA para detecção e prevenção de intrusão.
 
 
-\section{Contexto}
 
-Nos dias atuais pessoas e empresas estão cada vez mais dependentes do uso da internet para realizar suas tarefas. Com o aumento da utilização também temos um aumento de casos de incidentes sobre quebra de segurança. Segundo o CERT \cite{CERT} tivemos um crescimento de 197\% de incidentes no ano de 2014 relativo a 2013. A necessidade de se proteger contra estes
-ataques acabou despertando interesse por ferramentas automatizadas para detectar ataques e analisar formas de aprimorar as técnicas atuais para tal.
+
+
+\section{Escopo}
 
 As ferramentas de detecção de intrusão são chamadas de IDS (Intrusion Detection System), seu trabalho é monitorar as atividades e analisar os eventos em uma rede em busca de anomalias que sugiram uma invasão. Estes não costumam executar qualquer ação para impedir intrusões, sua principal função é alertar os administradores de sistemas que há uma possível violação de segurança, sendo desta forma uma ferramenta passiva.
 Existem as ferramentas de prevenção de intrusão, que são conhecidas como IPS (Intrusion Prevention System) estas são ferramentas que assim como IDS analisam o trafego e os eventos de uma rede, porem reagem de forma a bloquear o acesso ou atividade maliciosa, senso assim uma ferramenta ativa.
