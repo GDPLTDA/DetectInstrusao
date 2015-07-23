@@ -2,15 +2,6 @@
 %\addcontentsline{toc}{chapter}{Revisão de Literatura}
 % ----------------------------------------------------------
 
-Um trabalho feito na Information Systems Security Bureau \cite{Stampar}, fez um comparativo de técnicas publicas entre os anos de 2010 e 2014 para a detecção de intrusão.
-
-A pesquisa indica que existe um pequeno crescimento das técnicas de aprendizado de maquina (ML) e inteligencia artificial (AI) comparadas com outras técnicas que não são informadas, mostrando as técnicas como uma sub-área importante e com uma forte tendencia, concluindo ML contribui como a principal área da AI utilizada para a detecção de intrusão.
-
-Outro comparativo foi com o numero de publicação entre 2010 e 2014 das diferentes algoritmos de inteligencia artificial e aprendizado de maquina como Redes Neurais Artificiais, Logica Fuzzy, Algoritmo Genético, Arvore de Decisões, etc. A pesquisa mostrar que algorítimos com base em redes neurais artificiais são os algoritmos de inteligencia artificial mais popular entre as publicações, mesmo com uma pequena queda em seu uso no ultimo ano. Algoritmo Genético, K-vizinhos mais próximos e arvore de decisão ficam muito próximos, quase empatando no segundo lugar.
-
-O artigo conclui que inteligencia artificial desempenha um papel substancial no estudo de detecção de intrusão, redes neurais artificiais  são as mais populares, e que a pesquisa nessa área ainda é muito necessária, ha muitos resultados promissores nesses algorítimos,  especialmente em abordagens hibridas, nos quais se utiliza a combinação entre técnicas diferentes.
-
-
 No trabalho de Marley  \cite{Marley}, é dada uma visão geral sobre Redes Neurais Artificiais(RNA), explicando que a expressão "rede neural" é a tentativa de representar a capacidade que cérebro humano possui de reconhecer, associar e generalizar padrões, sendo as principais áreas de atuação para a classificação de padrões e previsão.
 
 A modelagem de uma rede neural consiste em três etapas: (1) Treinamento e Aprendizado, obtido pelo ambiente gerador dos dados, (2) Associação, obtido pelo reconhecimento de padrões distintos e (3) Generalização, relacionado a capacidade da rede de reconhecer com sucesso o ambiente que origina os dados, não propriamente os dados utilizados no treinamento.
@@ -20,6 +11,21 @@ O aprendizado é resultado de muitas apresentações de conjuntos de exemplos de
 
 O treinamento pode ser dado de duas maneiras: (1)batelada ou ciclos, onde a atualização somente acontece depois da apresentação de todos os pesos e (2) padrão a padrão ou incremental,onde a atualização é feita após a apresentação de cada novo padrão. O procedimento de treinamento pode ser classificado em dois tipos: supervisionado e não supervisionado.
 
+Para mostrar a importância de técnicas de inteligência artificial para detecção de intrusão no trabalho feito na Information Systems Security Bureau (??), foi feito uma analise quantitativa na forma de pesquisa cientifica dando uma visão geral da literatura procurando publicações com tópicos relacionados a “Detecção de intrusão”. 
+Com o objetivo principal da pesquisa sendo uma forma compreensível de mostrar as tendências atuais na área. 
+Foi utilizado o Google Acadêmico por ser aberto e simples, para realizar as pesquisas na literatura cientifica. 
+A primeira comparação é  do período de 2010 a 2014, utilizando um auxiliar “Outros” que seria, por exemplo, detectores de intrusão baseados em assinaturas, e comparando com os baseados em aprendizado de maquina e inteligência artificial, mesmo Outros tendo muito mais publicações, é possível ver um aumento significativo nas duas técnicas nos últimos anos.
+A segunda comparação também no período de 2010 a 2014, mostrando diferentes algoritmos de inteligência artificial utilizados para detecção de intrusão, entre eles estão: Redes Neurais, Lógica Fuzzy, Algoritmos Genéticos, Arvores de Decisão, Support Vector Machies e entre outros. 
+Redes neurais, com um grande vantagem sobre os outros algoritmos, se mostrou o algoritmo de inteligência artificial mais popular na literatura ciência, mas a resultados promissores em técnicas híbridas, onde se utiliza diferentes técnicas de inteligência artificiais combinadas.
+
+No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um modelo multi-camadas chamado de POLVO-IIDS, sendo uma técnica híbrida que combina redes neurais com Support Vector Machies(SVM). Com o objetivo principal de prover um sistema de detecto de intrusão inteligente (IIDS) que seja preciso, flexível, tolerante a variações de ataques, adaptativo a variações de ambiente, modular e que atue em tempo real.
+O modelo consiste em duas camadas: 
+A primeira camada é o classificador, composta de uma rede neural de Kohonen, fazendo uma pre-seleção do trafego de entrada, através da analise de características contidas nos pacotes em um determinado período de tempo e indicando como saída se é uma intrusão ou normal.
+A segunda camada é detector de anomalias, composto por quatro Support Vector Machines, cada um trata de uma categoria distinta de ataque, sendo especializado no tipo correspondente e com duas opções de saída: trafego normal ou atividade maliciosa. As categorias usadas na criação do detector de anomalias foram: DoS, Worm, Scan, R2L/Normal.
+O protótipo foi implementado utilizando a linguagem de programação Java e a rede neural de Kohonen e as SVMs foram implementadas no framework Joone (Java Object Oriented Neural Engine Versão 2.0).
+Os resultados obtidos com os testes, mostrou que o modelo é eficiente, usando a base de dados KDD Cup 1999 Data,foram efetuados quatro testes para medir as taxas de acerto. Os testes 1 e 2 contaram com 15000 e 30000 dados de entrada, respectivamente, para treinamento da rede com reforço de 100 vezes para cada entrada. Os testes 3 e 4 utilizando os mesmos dados de entrada, porem com reforço de 1000 vezes para cada entrada. O teste 4 se mostrou o mais eficiente utilizando 30000 entradas e reforço de 1000 vezes para cada entrada, teve uma taxa de acerto médio de 96,55\%, embora tenha levado cerca de 40 minutos.
+
+
 Muitas abordagens de RNA tem sido implementadas e testadas para IDS, um sistema proposto por Ryan \cite{Ryan}, analisou  o comportamento de usuários individuais. O padrão de entrada foi então combinado com os perfis de usuário para identificar o utilizador (Um nó correspondente ao utilizador com um valor > 0,5 é atribuída a esse usuário). Um flag é gerado se nenhuma correspondência for encontrada,  este é considerado como uma anomalia. No entanto, isto exigia grande quantidade de dados para treinar a rede para cada utilizador. Dados insuficientes para um usuário pode levar à falsos positivos para o comportamento desse usuário na rede. O sistema teve uma taxa de detecção de anomalia de 96\% e 7\% de falsos alarmes.
 
 Cannady propôs um modelo chamado Multi-layered Perceptron (MLP) \cite{Cannady}, utilizando o algorítimo de \textit{backpropagation} ao invés de criar perfis individuais. Foi necessário 26.13 horas para completar com aproximadamente 98\% de acerto no conjunto de dados de treinamento e 97,5\% no conjunto de dados de teste.
@@ -27,16 +33,7 @@ Cannady propôs um modelo chamado Multi-layered Perceptron (MLP) \cite{Cannady},
 Devaraju e Ramakrishnan implementaram a  Rede Neural Probabilística (PNN) \cite{Devaraju} esta obteve desempenho melhor do que uma rede do tipo FeedForward e Radial Basis. No entanto, a PNN (precisão = 80,38\%) conseguiu ser apenas 0,02\% melhor do que a rede do tipo FeedForward (precisão = 80,4\%) nao sendo uma diferença significativa. A precisão do  Radial Basis é de 75,4\%.
 Resultados mais baixos que as abordagens que vimos até agora.
 
-No trabalho em conjunto do Departamento de Automação e Sistemas da Universidade Federal de Santa Catarina \cite{polvo1} e com a Pontifícia Universidade Católica do Paraná \cite{polvo2}, foi desenvolvido um modelo multi-camadas chamado de POLVO-IIDS. Com o objetivo principal de prover um sistema de detecto de intrusão inteligente (IIDS) que seja preciso, flexível, tolerante a variações de ataques, adaptativo a variações de ambiente, modular e que atue em tempo real.
-O modelo consiste em duas camadas: 
-A primeira camada é o classificador, composta de uma rede neural de Kohonen, fazendo uma pre-selecao do trafego de entrada, através da analise de características contidas nos pacotes em um determinado período de tempo e indicando como saída se é uma intrusão ou normal.
-A segunda camada é detector de anomalias, composto por quatro Support Vector Machines, cada um trata de uma categoria distinta de ataque, sendo especializado no tipo correspondente e com duas opções de saída: trafego normal ou atividade maliciosa. As categorias usadas na criação do detector de anomalias foram: DoS, Worm, Scan, R2L/Normal.
-O prototipo foi implementado utilizando a linguagem de programação Java e a rede neural de Kohonen e as SVMs foram implementadas no framework Joone (Java Object Oriented Neural Engine Versao 2.0).
-Os resultados obtidos com os testes, mostrou que o modelo é eficiente, usando a base de dados KDD Cup 1999 Data,foram efetuados quatro testes para medir as taxas de acerto. Os testes 1 e 2 contaram com 15000 e 30000 dados de entrada, respectivamente, para treinamento da rede com reforço de 100 vezes para cada entrada. Os testes 3 e 4 utilizando os mesmos dados de entrada, porem com reforço de 1000 vezes para cada entrada. O teste 4 se mostrou o mais eficiente utilizando 30000 entradas e reforço de 1000 vezes para cada entrada, teve uma taxa de acerto médio de 96,55\%, embora tenha levado cerca de 40 minutos.
-
 Shraddha Surana propôs um modelo \cite{Surana} utilizando clusterização Fuzzy e Redes neurais artificiais, onde o dataset de treinamento é dividido em N subsets, que são distribuídos em N redes neurais intermediarias, com mais uma camada de RNA que agrega os resultados das redes intermediarias para a partir dai realizar a classificação de novos dados. Esta abordagem conseguiu uma taxa de detecção de 81,6\%.
-
-
 
 Um trabalho feito na Pontifícia Universidade Católica do Rio de Janeiro \cite{RenatoMaia}, demonstra um teste de desempenho para algumas diferentes entradas para o treinamento de Redes neurais artificiais.
 
