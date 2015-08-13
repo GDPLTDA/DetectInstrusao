@@ -15,35 +15,31 @@ Detecção de intrusão é o processo de se identificar e responder a essas ativ
 Muitos informação sigilosa pode ser trafegada na rede, pessoas e empresas podem fazer transações bancarias, \textit{backup} de dados pessoais, informação de mercado, dentre outras. Em muitos casos o \monoFireWall não é suficiente para garantir a segurança. Também existem casos de usuários de dentro da rede que abusam de seus privilégios para obter informações indevidamente ou de ataques que simplesmente não são reconhecidos pelo sistema de detecção que esta monitorando.
 
 Incluímos alguns gráficos para demonstrar a difusão, motivações, técnicas e alvos por trás dos ataques registrados no ano de 2014
-É claro que esses dados não são perfeitamente precisos, são macro indicadores do cenário de ameaças e tendências correspondentes, uma vez que as fontes dos prazos (a partir da qual as estatísticas são derivadas) estão abertos e, portanto, só mostram ataques cibernéticos que foram descobertos e ganhou espaço no noticiário.
+É claro que esses dados não são perfeitamente precisos, são macro indicadores do cenário de ameaças e tendências correspondentes, uma vez que as fontes dos prazos (a partir da qual as estatísticas são derivadas) estão abertos e, portanto, só mostram ataques cibernéticos que foram descobertos e notificados.
 
 
 
 
 \begin{figure}
 	\begin{minipage}{.5\textwidth}
-	\includegraphics[scale=0.2]{Imagens/hackmageddon_trends.png}
-		\caption{Difusão}
-	\end{minipage}
-	\begin{minipage}{.5\textwidth}
 		\includegraphics[scale=0.2]{Imagens/hackmageddon_motivation.png}
 		\caption{Motivação}
 	\end{minipage}
 	\begin{minipage}{.5\textwidth}
-		\includegraphics[scale=0.2]{Imagens/hackmageddon_techniques.png}
+		\includegraphics[scale=0.2]{Imagens/hackmageddon_targets.png}
 		\caption{Técnicas}
 	\end{minipage}
 	\begin{minipage}{.5\textwidth}
-		\includegraphics[scale=0.2]{Imagens/hackmageddon_targets.png}
+		\includegraphics[scale=0.2]{Imagens/hackmageddon_techniques.png}
 		\caption{Alvos}
 	\end{minipage}
 \end{figure}
 
 \begin{description} 
-	\item[Figura 1] . 
-	\item[Figura 2] .
-	\item[Figura 3] .
-	\item[Figura 4] The third etc 
+	\item[Figura 1] Crime cibernetico oculpa quase metade das motivações sobre os incidentes, isso é preocuoante pois consistem em  utilizar um computador ou uma rede de computadores como uma ferramenta para ataque ou como meio de crime. Em em segundo lugar com 35\% do volume temos o Hacktivismo, este é a utilização de técnicas de
+programação e código visando manipular informação para alcançar mudanças sociais e políticas.  \cite{deanalise}
+	\item[Figura 2] Os alvos principais para ataques sao governo e empresas, com volumes muito proximos, sofreram um crscimento relativo ao ano anterior, onde eram  23\% e 22\% respectivamente. \cite{hackmageddon}
+	\item[Figura 3] Podemos ver que "desconhecido" é s técnica de ataque é a que tem o maior volume. Estes sao os mais complicados para IDS baseados em regras, pois as caracteristicas que os fariam ser reconhecidos nao estao na base de dados que o IDS utiliza para classificar a açao como intrusão ou não, a partir dessa limitaçao que temos a importancia da utilização de tecnicas de IA para realizar as classificações.
 	\ldots 
 \end{description}
 
