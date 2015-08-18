@@ -6,6 +6,7 @@ import (
 	"strings"
 	"reflect"
 	"strconv"
+	"encoding/json"
 )
 // 
 
@@ -75,6 +76,7 @@ type KDDCup struct{
 	dst_host_srv_serror_rate int
 	dst_host_rerror_rate int
 	dst_host_srv_rerror_rate int
+	attack string
 }
 
 type t struct {
@@ -85,7 +87,7 @@ var DataBase []KDDCup
 var totalreg int
 
 func main() { 
-	filename := "C:\\Users\\rmendonca\\Documents\\GitHub\\Senac-TCC\\source\\KDDCUP\\kddcup.data_10_percent_corrected"
+	filename := "kddcup.data"
 	// faz a leitura do arquivo
 	file,err := os.Open(filename)
 	checkerro(err)
@@ -99,7 +101,18 @@ func main() {
 		line=readline(file)
 	}
 
-	
+	b, err := json.Marshal(DataBase)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    // open output file
+    fo, err := os.Create("output.json")
+    if err != nil {
+        panic(err)
+    }
+    fo.WriteString(string(b))
 
 	fmt.Printf("Total de registros: %d",totalreg)
 }
@@ -148,9 +161,7 @@ func scanline(l string){
         }
 	}
 
-	fmt.Printf("1:%d",newreg.Duration)
-	fmt.Printf("2:%s\n",newreg.Protocol_type)
-	//append(DataBase, newreg)
+	DataBase = append(DataBase, *newreg)
 	totalreg = totalreg + 1
 }
 
