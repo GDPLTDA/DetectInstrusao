@@ -55,6 +55,12 @@ func Copy(dst net.Conn, src net.Conn, id string) {
                 
                 src.Write(buf.Bytes())
         }
+<<<<<<< HEAD
+=======
+
+        //io.Copy(dst, src)
+
+>>>>>>> 9931db2260cc6fa8cfef43b655ada063bddcc324
 }
 
 func fatal(s string, a ... interface{}) { 
