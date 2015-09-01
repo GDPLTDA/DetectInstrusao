@@ -1,4 +1,6 @@
 node_modules/
+.vagrant/
+mongo/
 **/*.swp
 **/*.log
 **/*.aux
@@ -17,3 +19,5 @@ node_modules/
 **/*.dvi
 **/tex/**/*.pdf
 **/*.fuse_*
+**/.vagrant/
+**/mongo/
