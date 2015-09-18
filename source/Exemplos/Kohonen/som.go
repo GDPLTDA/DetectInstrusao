@@ -11,6 +11,10 @@ import (
     "bufio"
 )
 
+type Color struct {
+    R, G ,B float32
+}
+
 func main() {
     rand.Seed(time.Now().UTC().UnixNano())
 
@@ -35,6 +39,7 @@ type Kohonen struct {
     iteration,length,dimenions,numlines int
     patterns [][]float64
     labels []string
+    Colors [][]Color
 }
 
 func (r Kohonen) Create(l int, d int) Kohonen{
@@ -81,12 +86,12 @@ func (r Kohonen) LoadData(f string) Kohonen {
     reader := bufio.NewReader(file)
     scanner := bufio.NewScanner(reader)
     
-    r.numlines=0
+    r.numlines=-1
 
     for scanner.Scan() {
         line:=scanner.Text()
 
-        if(r.numlines>0){
+        if(r.numlines>-1){
             params:=strings.Split(line,",")
             
             r.labels = append(r.labels, params[0])
@@ -121,7 +126,7 @@ func (r Kohonen) NormalisePatterns() Kohonen{
 
         avg:= sum / l
 
-        for i := 0; i < len(r.patterns[j]); i++ {
+        for i := 0; i < r.numlines; i++ {
             r.patterns[i][j] = r.patterns[i][j] / avg
         }
     }
@@ -143,15 +148,12 @@ func (r Kohonen) Train(maxErro float64) Kohonen{
         for i := 0; i < r.numlines; i++ {
             ind:=rand.Intn((r.numlines - i))
 
-            if(ind == len(TrainingSet)){
-                ind = ind - 1
-            }
             pattern:=TrainingSet[ind]
             v:=float64(0)
             v,r = r.TrainPattern(pattern)
             erro+=v
             
-            TrainingSet = append(TrainingSet[:ind],TrainingSet[ind:]...)
+            TrainingSet = append(TrainingSet[:ind],TrainingSet[ind+1:]...)
         }
         //fmt.Printf("Erro:%i\n",erro)
     }
@@ -166,8 +168,9 @@ func (r Kohonen) TrainPattern(pattern []float64) (float64,Kohonen){
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            erro+= r.outputs[i][j].UpdateWeigths(pattern,winner,r.iteration)
-
+            v:=float64(0)
+            v,r.outputs[i][j] = r.outputs[i][j].UpdateWeigths(pattern,winner,r.iteration)
+            erro+= v
         }   
     }
     r.iteration++
@@ -182,7 +185,7 @@ func (r Kohonen) DumpCoordinates(){
         neu:= r. Winner(num)
         
         s:=r.labels[i]
-        fmt.Printf("%s %d %d\n",s,neu.x,neu.y)
+        fmt.Printf("%s,%d,%d\n",s,neu.x,neu.y)
         i++
     }
 }
@@ -233,8 +236,10 @@ func (r Neuron) Create(x int, y int, l int) Neuron{
     r.length = l
 
     dl:=float64(l)
-    r.nf = 1000 / math.Log(dl)
 
+    log:=math.Log(dl)
+    r.nf = 1000 / log
+    
     return r
 }
 
@@ -257,11 +262,11 @@ func (r Neuron) LearningRate(it int) float64 {
 func (r Neuron) Strength(it int) float64 {
     dit:=float64(it)
     dl:=float64(r.length)
-
+    fmt.Printf("%g\n",r.nf)
     return math.Exp(-dit / r.nf) * dl
 }
 
-func (r Neuron) UpdateWeigths(pattern []float64,winner Neuron,it int) float64 {
+func (r Neuron) UpdateWeigths(pattern []float64,winner Neuron,it int) (float64,Neuron) {
     sum:=float64(0)
     
     for i := 0; i < len(r.Weigths); i++ {
@@ -269,13 +274,12 @@ func (r Neuron) UpdateWeigths(pattern []float64,winner Neuron,it int) float64 {
 
         r.Weigths[i]+=delta
 
-        //RGB[i] = 
         sum+=delta
     }
 
     dl:=float64(r.length)
 
-    return sum / dl
+    return sum / dl, r
 }
 // --------------------------------FimNeuronio--------------------------------------------------------------------------------------
 
