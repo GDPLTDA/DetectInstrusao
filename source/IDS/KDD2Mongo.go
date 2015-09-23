@@ -6,7 +6,7 @@ import (
 	"strings"
 	"reflect"
 	"strconv"
-	"log"
+	"bufio"
     "gopkg.in/mgo.v2"
 )
 
@@ -83,64 +83,40 @@ type t struct {
         Duration int
     }
 
-var DataBase []KDDCup
 var totalreg int
+var server string
+var Db *mgo.Session
+var err error
 
 func main() { 
-	server:="localhost"
-	filename := "kddcup.data_10_percent_corrected"
+	server ="localhost"
+	filename := "kddcup"
+	
+
 	// faz a conexao com a base de dados
-	session, err := mgo.Dial(server)
+	Db, err = mgo.Dial(server)
     if err != nil {
         panic(err)
     }
-    defer session.Close()
 
     // Optional. Switch the session to a monotonic behavior.
-    session.SetMode(mgo.Monotonic, true)
+    Db.SetMode(mgo.Monotonic, true)
 
-    Colletion := session.DB("TCC").C("KDDCup")
-	
 	// faz a leitura do arquivo
 	file,err := os.Open(filename)
 	checkerro(err)
 	totalreg = 0
 
-	// faz a leitura da linha
-	line:=readline(file)
-	for line!="" {
+	reader := bufio.NewReader(file)
+    scanner := bufio.NewScanner(reader)
+
+    for scanner.Scan() {
+        line:=scanner.Text()
+
 		scanline(line)
-		// faz a leitura da proxima linha
-		line=readline(file)
 	}
-	for _,item := range DataBase {
-  		err =Colletion.Insert(item)
-  		if err != nil {
-			log.Fatal(err)
-	    }
-	}
-
 	fmt.Printf("Total de registros: %i",totalreg)
-}
-
-func readline(f *os.File) string{
-	ret :=""
-	c := ""
-	b := make([]byte, 1)
-
-	// quanto não for enter
-	for c != "\n" {
-		f.Read(b)
-
-		// se não ler nada, arquivo acabou, então sai do loop
-		if b[0] == 0{
-			break
-		}
-
-		c = string(b)
-		ret += c
-	}
-	return ret
+	Db.Close()
 }
 
 func scanline(l string){
@@ -165,8 +141,15 @@ func scanline(l string){
             }
         }
 	}
-	
-	DataBase = append(DataBase, *newreg)
+
+	Colletion := Db.DB("TCC").C("KDDCup")
+
+	err =Colletion.Insert(newreg)
+	if err != nil {
+		fmt.Printf("Erro Linha: %n\n",totalreg)
+		checkerro(err)
+		//log.Fatal(err)
+    }
 	totalreg = totalreg + 1
 }
 
