@@ -158,7 +158,7 @@ func readreg(l *string) string{
 
 	// valida final de arquivo
 	if i < 0 {
-		i=len(*l)-2
+		i=len(*l)-1
 	}
 
 	reg := (*l)[:i]
