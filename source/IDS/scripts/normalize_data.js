@@ -21,13 +21,13 @@ function totaliza(e){
       		else if (x=="attack")
       		{
       			var atkName = atk[e[x]];
-      			data[x] = {
-      				"normal" : atkName==="normal" ? 1 : 0,
-      				"dos" : atkName==="dos" ? 1 : 0,
-      				"probe" : atkName==="probe" ? 1 : 0,
-      				"r2l" : atkName==="r2l" ? 1 : 0,
-      				"u2r" : atkName==="u2r" ? 1 : 0
-      			};	
+      			data[x] = [
+      				atkName==="normal" ? 1 : 0,
+      				atkName==="dos" ? 1 : 0,
+      				atkName==="probe" ? 1 : 0,
+      				atkName==="r2l" ? 1 : 0,
+      				atkName==="u2r" ? 1 : 0
+      			];	
       		}
 
       	}
