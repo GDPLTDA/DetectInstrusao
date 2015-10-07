@@ -61,16 +61,16 @@ func LoadFile(f string) somk.Kohonen {
     numlines:=-1
 
     var patterns [][]float64
+    var ident []float64
     var labels []string
-
     for scanner.Scan() {
         line:=scanner.Text()
 
         if(numlines>-1){
             params:=strings.Split(line,",")
             
+            ident = append(ident, float64(1))
             labels = append(labels, params[0])
-
             inputs := make([]float64,Dimensions)
 
             for i := 0; i < Dimensions; i++ {
@@ -86,10 +86,21 @@ func LoadFile(f string) somk.Kohonen {
         numlines++;
     }
 
-    Koh = Koh.Create(Gridsize,Dimensions)
-    Koh.Labels   = labels
+    var result [][]float64
+    result = make([][]float64,len(ident))
+    for i := 0; i < len(ident); i++ {
+        result[i] = make([]float64,len(ident))
+        result[i][i] = ident[i]
+    }
+
+    Koh.Result   = result
     Koh.Patterns = patterns
     Koh.Numlines = numlines
+    Koh.NumResults = len(ident)
+    Koh.Labels = labels
+
+    Koh = Koh.Create(Gridsize,Dimensions)
+
     return Koh
 }
 
@@ -112,7 +123,7 @@ func LoadKDDCup() somk.Kohonen{
     }
 
     Koh = Koh.Create(Gridsize,Dimensions)
-    Koh.Labels   = labels
+    //Koh.Labels   = labels
     Koh.Numlines = numlines
 
     return Koh

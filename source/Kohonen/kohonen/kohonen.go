@@ -3,7 +3,6 @@ package kohonen
 import (
     neu "../neuron"
     "os"
-    "fmt"
     "math"
     "math/rand"
     "image"
@@ -23,8 +22,9 @@ var (
 
 type Kohonen struct {
     Outputs [][]neu.Neuron
-    iteration,length,dimensions,Numlines int
+    iteration,length,dimensions,Numlines,NumResults int
     Patterns [][]float64
+    Result [][]float64
     Labels []string
     Before *os.File
     After *os.File
@@ -72,11 +72,16 @@ func (r Kohonen) Initialise() Kohonen{
         for j := 0; j < r.length; j++ {
             r.Outputs[i][j] = r.Outputs[i][j].Create(i,j,r.length)
             r.Outputs[i][j].Weights = make([]float64,r.dimensions)
+            r.Outputs[i][j].ExitWeights = make([]float64, r.NumResults)
             r.Outputs[i][j].RGB = make([]int,r.dimensions)
 
             for k := 0; k < r.dimensions; k++ {
                 r.Outputs[i][j].Weights[k] = rand.Float64()
                 r.Outputs[i][j].RGB[k] = int((r.Outputs[i][j].Weights[k] * 255))
+            }
+
+            for k := 0; k < r.NumResults; k++ {
+                r.Outputs[i][j].ExitWeights[k] = rand.Float64();
             }
 
             red:=uint8(r.Outputs[i][j].RGB[0])
@@ -129,7 +134,7 @@ func (r Kohonen) Train(maxErro float64) Kohonen{
 
             pattern:=TrainingSet[ind]
             v:=float64(0)
-            v,r = r.TrainPattern(pattern)
+            v,r = r.TrainPattern(pattern,r.Result[ind])
             erro+=v
             
             TrainingSet = append(TrainingSet[:ind],TrainingSet[ind+1:]...)
@@ -140,7 +145,7 @@ func (r Kohonen) Train(maxErro float64) Kohonen{
     return r
 }
 
-func (r Kohonen) TrainPattern(pattern []float64) (float64,Kohonen){
+func (r Kohonen) TrainPattern(pattern []float64,patternexit []float64) (float64,Kohonen){
     erro:=float64(0)
 
     var winner neu.Neuron
@@ -149,6 +154,8 @@ func (r Kohonen) TrainPattern(pattern []float64) (float64,Kohonen){
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
             v:=float64(0)
+
+            v,r.Outputs[i][j] = r.Outputs[i][j].UpdateExitWeights(patternexit,winner,r.iteration)
             v,r.Outputs[i][j] = r.Outputs[i][j].UpdateWeigths(pattern,winner,r.iteration)
             erro+= v
         }   
@@ -158,7 +165,7 @@ func (r Kohonen) TrainPattern(pattern []float64) (float64,Kohonen){
     l:=float64(r.length)
     return math.Abs(erro / (l * l)),r
 }
-
+/*
 func (r Kohonen) DumpCoordinates(){
     i:=0
     for _, num := range r.Patterns {
@@ -168,6 +175,18 @@ func (r Kohonen) DumpCoordinates(){
         fmt.Printf("%s,%d,%d\n",s,neu.X,neu.Y)
         i++
     }
+}
+*/
+func (r Kohonen) Test(pattern []float64) (int){
+    neu := r.Winner(pattern)
+    max:=0
+    for i := 0; i < len(neu.ExitWeights); i++ {
+        if(neu.ExitWeights[max] < neu.ExitWeights[i]){
+            max = i
+        }
+    }
+
+    return max
 }
 
 func (r Kohonen) Winner(pattern []float64) neu.Neuron{

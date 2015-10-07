@@ -38,6 +38,23 @@ func main() {
     if somf.Savetrain{
         somf.SaveTrainJson()
     }
+
+    
+    var num int
+    
+    for true {
+        var a []float64
+        a = append(a, 0,0,0)
+        for i := 0; i < 3; i++ {
+            fmt.Printf("%d >> ", i)
+            fmt.Scanf("%d", &num)
+            a[i] = float64(num)
+        }
+        
+        i :=somf.Koh.Test(a)
+        fmt.Println(somf.Koh.Labels[i])
+    }
+    
     fmt.Printf("Completed!")
 }
 

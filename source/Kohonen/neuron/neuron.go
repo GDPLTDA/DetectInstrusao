@@ -6,6 +6,7 @@ import (
 
 type Neuron struct {
     Weights []float64
+    ExitWeights []float64
     RGB []int
     X,Y,Length int
     nf float64
@@ -18,7 +19,7 @@ func (r Neuron) Create(x int, y int, l int) Neuron{
     r.Y = y
     r.Length = l
     r.maxint = 1000
-    r.maxvar = 0.1
+    r.maxvar = 1.0
 
     dl:=float64(l)
 
@@ -62,6 +63,22 @@ func (r Neuron) UpdateWeigths(pattern []float64,winner Neuron,it int) (float64,N
         if r.RGB[i] > 255{
             r.RGB[i] = 255
         }
+
+        sum+=delta
+    }
+
+    dl:=float64(r.Length)
+
+    return sum / dl, r
+}
+
+func (r Neuron) UpdateExitWeights(Exitpattern []float64,winner Neuron,it int) (float64,Neuron) {
+    sum:=float64(0)
+    
+    for i := 0; i < len(r.ExitWeights); i++ {
+        delta:=r.LearningRate(it) * r.Gauss(winner, it) * (Exitpattern[i] - r.ExitWeights[i])
+
+        r.ExitWeights[i]+=delta
 
         sum+=delta
     }
