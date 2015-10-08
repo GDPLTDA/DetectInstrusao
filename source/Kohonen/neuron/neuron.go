@@ -19,7 +19,7 @@ func (r Neuron) Create(x int, y int, l int) Neuron{
     r.Y = y
     r.Length = l
     r.maxint = 1000
-    r.maxvar = 1.0
+    r.maxvar = 0.1
 
     dl:=float64(l)
 

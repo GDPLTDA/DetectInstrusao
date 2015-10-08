@@ -9,6 +9,7 @@ import (
     "image/color"
     "image/draw"
     "image/png"
+    "log"
 )
 
 var (
@@ -55,7 +56,12 @@ func (r Kohonen) Draw(){
             Screen.Set(i, j, color.RGBA{red, green, blue, 255})
         }
     }
-    png.Encode(r.After, Screen)
+    err :=png.Encode(r.After, Screen)
+    r.After.Close()
+
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 
 func (r Kohonen) Initialise() Kohonen{
@@ -92,8 +98,11 @@ func (r Kohonen) Initialise() Kohonen{
         }
     }
     
-    png.Encode(r.Before, Screen)
-
+    err := png.Encode(r.Before, Screen)
+    r.Before.Close()
+    if err != nil {
+        log.Fatal(err)
+    }
     return r
 }
 

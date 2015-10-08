@@ -77,7 +77,7 @@ func LoadFile(f string) somk.Kohonen {
                 p:=params[i + 1]
 
                 num,err:=strconv.ParseFloat(p, 64)
-
+                fmt.Printf("",)
                 inputs[i] = num
                 Checkerro(err)
             }
