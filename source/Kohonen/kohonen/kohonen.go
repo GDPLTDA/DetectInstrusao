@@ -9,7 +9,7 @@ import (
     "image/color"
     "image/draw"
     "image/png"
-    "log"
+    "fmt"
 )
 
 var (
@@ -23,6 +23,7 @@ var (
 
 type Kohonen struct {
     Outputs [][]neu.Neuron
+    maxiteration int
     iteration,length,dimensions,Numlines,NumResults int
     Patterns [][]float64
     Result [][]float64
@@ -31,13 +32,15 @@ type Kohonen struct {
     After *os.File
 }
 
-func (r Kohonen) Create(l int, d int) Kohonen{
+func (r Kohonen) Create(l int, d int,i int) Kohonen{
+    
     r.length = l
     r.dimensions = d
     r.iteration = 0
+    r.maxiteration = i
     r.Before, _ = os.Create("Before.png")
     r.After, _ = os.Create("After.png")
-
+    
     r = r.Initialise()
 
     return r
@@ -56,12 +59,8 @@ func (r Kohonen) Draw(){
             Screen.Set(i, j, color.RGBA{red, green, blue, 255})
         }
     }
-    err :=png.Encode(r.After, Screen)
+    png.Encode(r.After, Screen)
     r.After.Close()
-
-    if err != nil {
-        log.Fatal(err)
-    }
 }
 
 func (r Kohonen) Initialise() Kohonen{
@@ -98,11 +97,9 @@ func (r Kohonen) Initialise() Kohonen{
         }
     }
     
-    err := png.Encode(r.Before, Screen)
+    png.Encode(r.Before, Screen)
     r.Before.Close()
-    if err != nil {
-        log.Fatal(err)
-    }
+
     return r
 }
 
@@ -125,76 +122,48 @@ func (r Kohonen) NormalisePatterns() Kohonen{
     return r
 }
 
-func (r Kohonen) Train(maxErro float64) Kohonen{
+func (r Kohonen) Train(Iteractions int) Kohonen{
     r = r.NormalisePatterns()
-    erro:=math.MaxFloat64
 
-    for erro > maxErro {
-        erro=float64(0)
-
-        var TrainingSet [][]float64
-
-        for _, num := range r.Patterns {
-            TrainingSet = append(TrainingSet,num)
-        }
-
+    for inter := 1; inter <= Iteractions; inter++ {
         for i := 0; i < r.Numlines; i++ {
-            ind:=rand.Intn((r.Numlines - i))
-
-            pattern:=TrainingSet[ind]
-            v:=float64(0)
-            v,r = r.TrainPattern(pattern,r.Result[ind])
-            erro+=v
-            
-            TrainingSet = append(TrainingSet[:ind],TrainingSet[ind+1:]...)
+            r = r.TrainPattern(r.Patterns[i],r.Result[i])
         }
-        //fmt.Printf("Erro:%f\n",erro)
     }
-
     return r
 }
 
-func (r Kohonen) TrainPattern(pattern []float64,patternexit []float64) (float64,Kohonen){
-    erro:=float64(0)
-
+func (r Kohonen) TrainPattern(pattern []float64,patternexit []float64) (Kohonen){
     var winner neu.Neuron
     winner = r.Winner(pattern)
 
+    aux:=r.Outputs
+
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            v:=float64(0)
-
-            v,r.Outputs[i][j] = r.Outputs[i][j].UpdateExitWeights(patternexit,winner,r.iteration)
-            v,r.Outputs[i][j] = r.Outputs[i][j].UpdateWeigths(pattern,winner,r.iteration)
-            erro+= v
+            aux[i][j] = r.Outputs[i][j].UpdateWeigths(pattern, patternexit,winner,r.iteration)
         }   
     }
     r.iteration++
+
+    r.Outputs = aux
     
-    l:=float64(r.length)
-    return math.Abs(erro / (l * l)),r
+    return r
 }
-/*
-func (r Kohonen) DumpCoordinates(){
-    i:=0
-    for _, num := range r.Patterns {
-        neu:= r. Winner(num)
-        
-        s:=r.Labels[i]
-        fmt.Printf("%s,%d,%d\n",s,neu.X,neu.Y)
-        i++
-    }
-}
-*/
+
 func (r Kohonen) Test(pattern []float64) (int){
     neu := r.Winner(pattern)
     max:=0
+    fmt.Printf("[")
     for i := 0; i < len(neu.ExitWeights); i++ {
-        if(neu.ExitWeights[max] < neu.ExitWeights[i]){
+        if(neu.ExitWeights[max] <= neu.ExitWeights[i]){
             max = i
         }
+        fmt.Printf(" %d ",int(neu.ExitWeights[i]*100))
     }
 
+    fmt.Printf("]\n")
+    
     return max
 }
 

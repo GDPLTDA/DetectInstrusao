@@ -28,7 +28,7 @@ func main() {
     }
 
     // faz o treinamento da base de dados
-    somf.Koh = somf.Koh.Train(somf.Error)
+    somf.Koh = somf.Koh.Train(5000)
     // Desenha o estado atual da grade
     somf.Koh.Draw()
 
