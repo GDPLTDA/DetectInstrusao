@@ -24,23 +24,20 @@ var (
 
 type Kohonen struct {
     Outputs [][]neu.Neuron
+
     maxiteration int
-    iteration,length,dimensions,Numlines,NumResults int
-    Patterns [][]float64
-    Result [][]float64
+    iteration, length, dimensions, Numlines, NumResults int
+
+    Patterns,Result [][]float64
     Labels []string
-    Before *os.File
-    After *os.File
+    maxnormal []float64
 }
 
 func (r Kohonen) Create(l int, d int,i int) Kohonen{
-    
     r.length = l
     r.dimensions = d
     r.iteration = 1
     r.maxiteration = i
-    r.Before, _ = os.Create("Before.png")
-    r.After, _ = os.Create("After.png")
     
     rand.Seed(time.Now().Unix())
     r = r.Initialise()
@@ -61,8 +58,9 @@ func (r Kohonen) Draw(){
             Screen.Set(i, j, color.RGBA{red, green, blue, 255})
         }
     }
-    png.Encode(r.After, Screen)
-    r.After.Close()
+    After, _ := os.Create("After.png")
+    png.Encode(After, Screen)
+    After.Close()
 }
 
 func (r Kohonen) Initialise() Kohonen{
@@ -77,45 +75,52 @@ func (r Kohonen) Initialise() Kohonen{
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            r.Outputs[i][j] = r.Outputs[i][j].Create(i,j,r.length,r.maxiteration)
-            r.Outputs[i][j].Weights = make([]float64,r.dimensions)
-            r.Outputs[i][j].ExitWeights = make([]float64, r.NumResults)
-            r.Outputs[i][j].RGB = make([]int,r.dimensions)
+
+            neu:=r.Outputs[i][j]
+            neu = neu.Create(i,j,r.length,r.maxiteration)
+
+            neu.Weights = make([]float64,r.dimensions)
+            neu.ExitWeights = make([]float64, r.NumResults)
+            neu.RGB = make([]int,r.dimensions)
 
             for k := 0; k < r.dimensions; k++ {
-                r.Outputs[i][j].Weights[k] = rand.Float64()
-                r.Outputs[i][j].RGB[k] = int((r.Outputs[i][j].Weights[k] * 255))
+                neu.Weights[k] = rand.Float64()
+                neu.RGB[k] = int((neu.Weights[k] * 255))
             }
 
             for k := 0; k < r.NumResults; k++ {
-                r.Outputs[i][j].ExitWeights[k] = rand.Float64();
+                neu.ExitWeights[k] = rand.Float64();
             }
 
-            red:=uint8(r.Outputs[i][j].RGB[0])
-            green:=uint8(r.Outputs[i][j].RGB[1])
-            blue:=uint8(r.Outputs[i][j].RGB[2])
+            red:=uint8(neu.RGB[0])
+            green:=uint8(neu.RGB[1])
+            blue:=uint8(neu.RGB[2])
 
             Screen.Set(i, j, color.RGBA{red, green, blue, 255})
+            r.Outputs[i][j] = neu
         }
     }
-    
-    png.Encode(r.Before, Screen)
-    r.Before.Close()
+    Before, _ := os.Create("Before.png")
+    png.Encode(Before, Screen)
+    Before.Close()
 
     return r
 }
 
 func (r Kohonen) NormalisePatterns() Kohonen{
+    r.maxnormal = make([]float64,r.dimensions)
+
     for j := 0; j < r.dimensions; j++ {
-        sum:=float64(0)
+        max:=float64(0)
         for _, num := range r.Patterns {
             
-            if(sum < num[j]){
-                sum = num[j]
+            if(max < num[j]){
+                max = num[j]
             }
         }
+        r.maxnormal[j] = max
         for i := 0; i < r.Numlines; i++ {
-            r.Patterns[i][j] = r.Patterns[i][j] / sum
+            r.Patterns[i][j] = r.Patterns[i][j] / max
         }
     }
     return r
@@ -128,10 +133,6 @@ func (r Kohonen) Train(Iteractions int) Kohonen{
         for i := 0; i < r.Numlines; i++ {
             r = r.TrainPattern(inter,r.Patterns[i],r.Result[i])
         }
-    }
-
-    for i := 0; i < r.NumResults; i++ {
-        r.Test(r.Patterns[i])
     }
     return r
 }
@@ -154,7 +155,13 @@ func (r Kohonen) TrainPattern(inter int, pattern []float64,patternexit []float64
     return r
 }
 
-func (r Kohonen) Test(pattern []float64) (int){
+func (r Kohonen) Test(pattern []float64) {
+    
+    // normaliza a entrada
+    for i := 0; i < r.dimensions; i++ {
+        pattern[i] = pattern[i] / r.maxnormal[i]
+    }
+
     neu := r.Winner(pattern)
     max:=0
     fmt.Printf("[")
@@ -167,7 +174,6 @@ func (r Kohonen) Test(pattern []float64) (int){
 
     fmt.Printf("]\n")
     fmt.Println(r.Labels[max])
-    return max
 }
 
 func (r Kohonen) Winner(pattern []float64) neu.Neuron{

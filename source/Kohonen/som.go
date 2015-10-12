@@ -35,7 +35,6 @@ func main() {
     if somf.Savetrain{
         somf.SaveTrainJson()
     }
-
     
     var num float64
     
@@ -51,8 +50,7 @@ func main() {
             a[i] = num
         }
         
-        i :=somf.Koh.Test(a)
-        fmt.Println(somf.Koh.Labels[i])
+        somf.Koh.Test(a)
     }
     
     fmt.Printf("Completed!")
