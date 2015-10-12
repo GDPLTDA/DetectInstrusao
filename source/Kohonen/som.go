@@ -3,18 +3,15 @@ package main
 import (
     //"./somstructs"
     somf "./somfunctions"
-    "time"
     "fmt"
     "flag"
-    "math/rand"
+    
     "os"
     "bufio"
 )
 
 func main() {
     LoadParams()
-
-    rand.Seed(time.Now().UTC().UnixNano())
 
     // faz a leitura dos dados de treinamento
     if somf.Loadtype == 0 {

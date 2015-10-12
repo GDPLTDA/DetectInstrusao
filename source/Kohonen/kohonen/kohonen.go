@@ -10,6 +10,7 @@ import (
     "image/draw"
     "image/png"
     "fmt"
+    "time"
 )
 
 var (
@@ -36,11 +37,12 @@ func (r Kohonen) Create(l int, d int,i int) Kohonen{
     
     r.length = l
     r.dimensions = d
-    r.iteration = 0
+    r.iteration = 1
     r.maxiteration = i
     r.Before, _ = os.Create("Before.png")
     r.After, _ = os.Create("After.png")
     
+    rand.Seed(time.Now().Unix())
     r = r.Initialise()
 
     return r
@@ -75,7 +77,7 @@ func (r Kohonen) Initialise() Kohonen{
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            r.Outputs[i][j] = r.Outputs[i][j].Create(i,j,r.length)
+            r.Outputs[i][j] = r.Outputs[i][j].Create(i,j,r.length,r.maxiteration)
             r.Outputs[i][j].Weights = make([]float64,r.dimensions)
             r.Outputs[i][j].ExitWeights = make([]float64, r.NumResults)
             r.Outputs[i][j].RGB = make([]int,r.dimensions)
@@ -104,19 +106,16 @@ func (r Kohonen) Initialise() Kohonen{
 }
 
 func (r Kohonen) NormalisePatterns() Kohonen{
-    sum:=float64(0)
-    l:=float64(len(r.Patterns))
-
     for j := 0; j < r.dimensions; j++ {
-
+        sum:=float64(0)
         for _, num := range r.Patterns {
-            sum += num[j]
+            
+            if(sum < num[j]){
+                sum = num[j]
+            }
         }
-
-        avg:= sum / l
-
         for i := 0; i < r.Numlines; i++ {
-            r.Patterns[i][j] = r.Patterns[i][j] / avg
+            r.Patterns[i][j] = r.Patterns[i][j] / sum
         }
     }
     return r
@@ -127,24 +126,28 @@ func (r Kohonen) Train(Iteractions int) Kohonen{
 
     for inter := 1; inter <= Iteractions; inter++ {
         for i := 0; i < r.Numlines; i++ {
-            r = r.TrainPattern(r.Patterns[i],r.Result[i])
+            r = r.TrainPattern(inter,r.Patterns[i],r.Result[i])
         }
+    }
+
+    for i := 0; i < r.NumResults; i++ {
+        r.Test(r.Patterns[i])
     }
     return r
 }
 
-func (r Kohonen) TrainPattern(pattern []float64,patternexit []float64) (Kohonen){
+func (r Kohonen) TrainPattern(inter int, pattern []float64,patternexit []float64) (Kohonen){
     var winner neu.Neuron
     winner = r.Winner(pattern)
-
+    //fmt.Printf("%d\n",r.iteration)
     aux:=r.Outputs
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            aux[i][j] = r.Outputs[i][j].UpdateWeigths(pattern, patternexit,winner,r.iteration)
+            aux[i][j] = r.Outputs[i][j].UpdateWeigths(pattern, patternexit,winner,inter)
         }   
     }
-    r.iteration++
+    r.iteration = inter
 
     r.Outputs = aux
     
@@ -163,19 +166,22 @@ func (r Kohonen) Test(pattern []float64) (int){
     }
 
     fmt.Printf("]\n")
-    
+    fmt.Println(r.Labels[max])
     return max
 }
 
 func (r Kohonen) Winner(pattern []float64) neu.Neuron{
     var winner neu.Neuron
 
-    min:=math.MaxFloat64
+    min:= math.Sqrt(float64(len(pattern))) //math.MaxFloat64
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            dist:=r.Distance(pattern,r.Outputs[i][j].Weights)
+            //fmt.Printf("i:%d j:%d ",i,j)
+            dist:=r.Distance(r.Outputs[i][j].Weights,pattern)
 
+            //fmt.Printf("%v\n",pattern)
+            //fmt.Printf("dis:%g\n",dist)
             if(dist< min){
                 min = dist
                 
@@ -183,7 +189,9 @@ func (r Kohonen) Winner(pattern []float64) neu.Neuron{
             }
         }
     }
-
+    //fmt.Printf("%v\n",pattern)
+    //fmt.Printf("x:%d y:%d %v\n",winner.X,winner.Y,winner.Weights)
+    //fmt.Printf("x:%d y:%d\n",winner.X,winner.Y)
     return winner
 }
 
@@ -193,6 +201,8 @@ func (r Kohonen) Distance(v1 []float64,v2 []float64)  float64{
     for i := 0; i < len(v1); i++ {
         v+=math.Pow(v1[i] -v2[i],2)
     }
-
+    //fmt.Printf("p:%v\n",v1)
+    //fmt.Printf("w:%v\n",v2)
+    //fmt.Printf("v:%g\n",v)
     return math.Sqrt(v)
 }
