@@ -29,9 +29,6 @@ func main() {
     // Desenha o estado atual da grade
     somf.Koh.Draw()
 
-    //ShowPng(k.Before.Name())
-    //ShowPng(k.After.Name())
-
     if somf.Savetrain{
         somf.SaveTrainJson()
     }

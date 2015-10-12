@@ -2,9 +2,6 @@ package kohonen
 
 import (
     "math"
-    //"fmt"
-    //"bufio"
-    //"os"
 )
 
 type Neuron struct {
@@ -58,16 +55,12 @@ func (r Neuron) UpdateWeigths(pattern,Exitpattern []float64,winner Neuron,it int
     le:=r.Strength(it)
     dx:=float64(winner.X - r.X)
     dy:=float64(winner.Y - r.Y)
-    //fmt.Printf("wx:%d wy:%d x:%d y:%d\n",winner.X,winner.Y,r.X,r.Y)
 
     dist:=math.Sqrt(math.Pow(dx, 2) + math.Pow(dy, 2))
-    //fmt.Printf("dist:%g le:%g\n",dist,le)
+
     if(dist < le){
         Gau:=r.Gauss(it,le,dist)
         Lea:=r.LearningRate(it)
-        //fmt.Printf("Lea:%g Str:%g Gau:%g\n",Lea,le,Gau)
-        //fmt.Print("Press 'Enter' to continue...")
-        //bufio.NewReader(os.Stdin).ReadBytes('\n') 
 
         for i := 0; i < len(r.Weights); i++ {
             delta:= Lea * Gau * (pattern[i] - r.Weights[i])

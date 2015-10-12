@@ -140,7 +140,7 @@ func (r Kohonen) Train(Iteractions int) Kohonen{
 func (r Kohonen) TrainPattern(inter int, pattern []float64,patternexit []float64) (Kohonen){
     var winner neu.Neuron
     winner = r.Winner(pattern)
-    //fmt.Printf("%d\n",r.iteration)
+    
     aux:=r.Outputs
 
     for i := 0; i < r.length; i++ {
@@ -179,15 +179,13 @@ func (r Kohonen) Test(pattern []float64) {
 func (r Kohonen) Winner(pattern []float64) neu.Neuron{
     var winner neu.Neuron
 
-    min:= math.Sqrt(float64(len(pattern))) //math.MaxFloat64
+    min:= math.Sqrt(float64(len(pattern)))
 
     for i := 0; i < r.length; i++ {
         for j := 0; j < r.length; j++ {
-            //fmt.Printf("i:%d j:%d ",i,j)
+            
             dist:=r.Distance(r.Outputs[i][j].Weights,pattern)
 
-            //fmt.Printf("%v\n",pattern)
-            //fmt.Printf("dis:%g\n",dist)
             if(dist< min){
                 min = dist
                 
@@ -195,9 +193,6 @@ func (r Kohonen) Winner(pattern []float64) neu.Neuron{
             }
         }
     }
-    //fmt.Printf("%v\n",pattern)
-    //fmt.Printf("x:%d y:%d %v\n",winner.X,winner.Y,winner.Weights)
-    //fmt.Printf("x:%d y:%d\n",winner.X,winner.Y)
     return winner
 }
 
@@ -207,8 +202,5 @@ func (r Kohonen) Distance(v1 []float64,v2 []float64)  float64{
     for i := 0; i < len(v1); i++ {
         v+=math.Pow(v1[i] -v2[i],2)
     }
-    //fmt.Printf("p:%v\n",v1)
-    //fmt.Printf("w:%v\n",v2)
-    //fmt.Printf("v:%g\n",v)
     return math.Sqrt(v)
 }
