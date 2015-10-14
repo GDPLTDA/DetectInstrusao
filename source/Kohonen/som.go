@@ -5,32 +5,51 @@ import (
     somf "./somfunctions"
     "fmt"
     "flag"
-    
+    //"testing"
     "os"
     "bufio"
 )
+var Test bool
+var Loadtype int
+var Filename, Trainname string
+var Savetrain bool
+var PngBefore,PngAfter string
 
 func main() {
     LoadParams()
+    PngBefore = "Before.png"
+    PngAfter = "After.png"
+    //if(Test){
+    //    br := testing.Benchmark(Execute)
+    //    fmt.Println(br)
+    //}
+    //if(Test){
+       Execute()
+    //}
+}
 
+func Execute(){
     // faz a leitura dos dados de treinamento
-    if somf.Loadtype == 0 {
-        somf.Koh = somf.LoadFile(somf.Filename)
+    if Loadtype == 0 {
+        somf.Koh = somf.LoadFile(Filename)
     }
-    if somf.Loadtype == 1 {
+    if Loadtype == 1 {
         somf.Koh = somf.LoadKDDCup()
     }
-    if somf.Loadtype == 2 {
+    if Loadtype == 2 {
         //Koh = LoadJson()
     }
 
+    // Desenha o estado atual da grade antes do treino
+    somf.Koh.Draw(PngBefore)
     // faz o treinamento da base de dados
-    somf.Koh = somf.Koh.Train(5000)
-    // Desenha o estado atual da grade
-    somf.Koh.Draw()
+    somf.Koh = somf.Koh.Train()
+    // Desenha o estado atual da grade depois do treino
+    somf.Koh.Draw(PngAfter)
 
-    if somf.Savetrain{
-        somf.SaveTrainJson()
+    // verifica se deve salvar o treinamento
+    if Savetrain{
+        somf.SaveTrainJson(Trainname)
     }
     
     var num float64
@@ -58,35 +77,43 @@ func LoadParams(){
     flag.StringVar(&somf.Server,"server", "localhost", "Server name")
     flag.StringVar(&somf.Dbname,"base", "TCC", "Data base name")
     flag.IntVar(&somf.Gridsize,"grid", 10, "Grid Size")
-    flag.BoolVar(&somf.Savetrain,"s", false, "Training Save?")
-    flag.StringVar(&somf.Trainname,"train", "GridTrain", "Training name")
-    flag.IntVar(&somf.Loadtype,"type", 0, "0-Load file,1-Load KddCup")
-    flag.StringVar(&somf.Filename,"f", "", "File name")
     flag.IntVar(&somf.Dimensions,"dim", 3, "Dimensions Weigths")
-    flag.Float64Var(&somf.Error,"err", 0.0000001, "Minimum error")
+    flag.IntVar(&somf.Interactions,"ite", 5000, "Iteractions")
+    flag.Float64Var(&somf.TxVar,"var", 0.5, "Taxa Variation")
+
+    flag.BoolVar(&Savetrain,"s", false, "Save Training?")
+    flag.StringVar(&Trainname,"train", "GridTrain", "Training name")
+    flag.IntVar(&Loadtype,"type", 0, "0-Load file,1-Load KddCup,2-Json File")
+    flag.StringVar(&Filename,"f", "", "File name")
+    flag.BoolVar(&Test,"t", false, "Test time")
 
     config:= flag.String("config", "", "Config file")
 
     flag.Parse()
     
-    fmt.Println("-type:", somf.Loadtype)
+    // passando parametro
+    if *config=="" {
+        fmt.Println("-type:", Loadtype)
 
-    if somf.Loadtype == 0{
-        fmt.Println("-File:", somf.Filename)
+        if Loadtype == 0{
+            fmt.Println("-File:", Filename)
+        }
+
+        if Loadtype == 1{
+            fmt.Println("-Server:", somf.Server)
+            fmt.Println("-DataBase:", somf.Server)
+        }
+
+        fmt.Println("-Grid Size:", somf.Gridsize)
+        fmt.Println("-Interactions:", somf.Interactions)
+        fmt.Println("-Variation:", somf.TxVar)
+        fmt.Println("-Save Training?:", Savetrain)
+
+        if Savetrain{
+            fmt.Println("-Training name:", Trainname)
+        }
     }
-
-    if somf.Loadtype == 1{
-        fmt.Println("-Server:", somf.Server)
-        fmt.Println("-DataBase:", somf.Server)
-    }
-
-    fmt.Println("-Grid Size:", somf.Gridsize)
-    fmt.Println("-Training Save?:", somf.Savetrain)
-
-    if somf.Savetrain{
-        fmt.Println("-Training name:", somf.Trainname)
-    }
-
+    // usando arquivo de configuracao
     if *config!="" {
         fmt.Println("-Config:", *config)
         file,err := os.Open(*config)

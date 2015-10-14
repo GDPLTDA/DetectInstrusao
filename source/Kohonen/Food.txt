@@ -1,4 +1,3 @@
-Item,protein,carb,fat
 Apples,0.4,11.8,0.1
 Avocado,1.9,1.9,19.5
 Bananas,1.2,23.2,0.3

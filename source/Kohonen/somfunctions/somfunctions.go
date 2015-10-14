@@ -15,12 +15,12 @@ import (
 )
 
 var Koh somk.Kohonen
-var Server, Dbname, Trainname string
+var Server, Dbname string
 var Gridsize,Dimensions int
-var Savetrain bool
-var Loadtype int
-var Filename string
 var Error float64
+var Interactions int
+var TxVar float64
+
 
 func ShowPng(name string) {
     command := "open"
@@ -57,8 +57,6 @@ func LoadFile(f string) somk.Kohonen {
 
     reader := bufio.NewReader(file)
     scanner := bufio.NewScanner(reader)
-    
-    numlines:=-1
 
     var patterns [][]float64
     var labels []string
@@ -66,39 +64,36 @@ func LoadFile(f string) somk.Kohonen {
     for scanner.Scan() {
         line:=scanner.Text()
 
-        if(numlines>-1){
-            params:=strings.Split(line,",")
-            
-            labels = append(labels, params[0])
-            inputs := make([]float64,Dimensions)
+        params:=strings.Split(line,",")
 
-            for i := 0; i < Dimensions; i++ {
-                p:=params[i + 1]
-
-                num,err:=strconv.ParseFloat(p, 64)
-                
-                inputs[i] = num
-                Checkerro(err)
-            }
-            patterns = append(patterns, inputs)
+        // primeiro parametro deve ser a label do registro
+        // verifica se a label ja existe
+        find:=false
+        for i := 0; i < len(labels); i++ {
+            find = labels[i] == params[0]
         }
-        numlines++;
+        if !find{
+            labels = append(labels, params[0])
+        }
+        inputs := make([]float64,Dimensions)
+
+        for i := 1; i <= Dimensions; i++ {
+            p:=params[i]
+
+            num,err:=strconv.ParseFloat(p, 64)
+            
+            inputs[i - 1] = num
+            Checkerro(err)
+        }
+        patterns = append(patterns, inputs)
     }
 
-    var result [][]float64
-    result = make([][]float64,len(labels))
-    for i := 0; i < len(labels); i++ {
-        result[i] = make([]float64,len(labels))
-        result[i][i] = 1
-    }
-
-    Koh.Result   = result
     Koh.Patterns = patterns
-    Koh.Numlines = numlines
-    Koh.NumResults = len(labels)
-    Koh.Labels = labels
+    Koh.NumReg   = len(patterns)
+    Koh.DimensionsOut = len(labels)
+    Koh.Labels   = labels
 
-    Koh = Koh.Create(Gridsize,Dimensions,5000)
+    Koh = Koh.Create(Gridsize,Dimensions,Interactions,TxVar)
 
     return Koh
 }
@@ -121,9 +116,9 @@ func LoadKDDCup() somk.Kohonen{
         numlines++
     }
 
-    Koh = Koh.Create(Gridsize,Dimensions,1000)
+    Koh = Koh.Create(Gridsize,Dimensions,Interactions,TxVar)
     //Koh.Labels   = labels
-    Koh.Numlines = numlines
+    Koh.NumReg = numlines
 
     return Koh
 }
@@ -133,7 +128,7 @@ func SaveTrainDB(){
     Colletion.RemoveAll(nil)
 
     ind:=0
-    for _, newline:= range Koh.Outputs {
+    for _, newline:= range Koh.Grid {
         for _, newreg:= range newline {
             err := Colletion.Insert(newreg)
             Checkerro(err)
@@ -145,11 +140,11 @@ func SaveTrainDB(){
     fmt.Printf("Treinamento Salvo, Linhas: %d\n",ind)
 }
 
-func LoadTrainDB() [][]somn.Neuron{
+func LoadTrainDB(col string) [][]somn.Neuron{
     var DbTrain []somn.Neuron
     var ListTrain [][]somn.Neuron
 
-    Colletion := LoadColletion(Trainname)
+    Colletion := LoadColletion(col)
 
     err := Colletion.Find(bson.M{}).All(&DbTrain)
     Checkerro(err)
@@ -157,13 +152,13 @@ func LoadTrainDB() [][]somn.Neuron{
     return ListTrain
 }
 
-func SaveTrainJson(){
-    o, err := os.Create("TrainDb.json")
+func SaveTrainJson(f string){
+    o, err := os.Create(f)
     if err != nil {
         panic(err)
     }
 
-    b, err := json.Marshal(Koh.Outputs)
+    b, err := json.Marshal(Koh.Grid)
     if err != nil {
         fmt.Println(err)
         return

@@ -23,134 +23,125 @@ var (
 )
 
 type Kohonen struct {
-    Outputs [][]neu.Neuron
+    Grid [][]neu.Neuron
 
-    maxiteration int
-    iteration, length, dimensions, Numlines, NumResults int
+    Interactions int
+    Gridsize, Dimensions, DimensionsOut, NumReg int
+    TxVar float64
 
-    Patterns,Result [][]float64
+    Patterns, Result [][]float64
     Labels []string
-    maxnormal []float64
+    Normal []float64
 }
 
-func (r Kohonen) Create(l int, d int,i int) Kohonen{
-    r.length = l
-    r.dimensions = d
-    r.iteration = 1
-    r.maxiteration = i
-    
+func (r Kohonen) Create(l int, d int, i int, v float64) Kohonen{
+    r.Gridsize = l
+    r.Dimensions = d
+    r.Interactions = i
+    r.TxVar = v
+
+    // seguindo o numero de registros diferentes, cria a grid de retorno sendo uma matriz identidade
+    r.Result = make([][]float64,len(r.Labels))
+    for i := 0; i < len(r.Labels); i++ {
+        r.Result[i] = make([]float64,len(r.Labels))
+        r.Result[i][i] = 1
+    }
+
     rand.Seed(time.Now().Unix())
     r = r.Initialise()
 
     return r
 }
 
-func (r Kohonen) Draw(){
-    Screen := image.NewRGBA(image.Rect(0, 0, r.length, r.length))
-    draw.Draw(Screen, Screen.Bounds(), &image.Uniform{white}, image.ZP, draw.Src)
-
-    for i := 0; i < r.length; i++ {
-        for j := 0; j < r.length; j++ {
-            red:=uint8(r.Outputs[i][j].RGB[0])
-            green:=uint8(r.Outputs[i][j].RGB[1])
-            blue:=uint8(r.Outputs[i][j].RGB[2])
-
-            Screen.Set(i, j, color.RGBA{red, green, blue, 255})
-        }
-    }
-    After, _ := os.Create("After.png")
-    png.Encode(After, Screen)
-    After.Close()
-}
-
 func (r Kohonen) Initialise() Kohonen{
-    r.Outputs=make([][]neu.Neuron,r.length)
 
-    for i := 0; i < r.length; i++ {
-        r.Outputs[i] = make([]neu.Neuron,r.length)
-    }
+    r.Grid=make([][]neu.Neuron,r.Gridsize)
 
-    Screen := image.NewRGBA(image.Rect(0, 0, r.length, r.length))
-    draw.Draw(Screen, Screen.Bounds(), &image.Uniform{white}, image.ZP, draw.Src)
+    for i := 0; i < r.Gridsize; i++ {
+        for j := 0; j < r.Gridsize; j++ {
+            r.Grid[i] = make([]neu.Neuron,r.Gridsize)
 
-    for i := 0; i < r.length; i++ {
-        for j := 0; j < r.length; j++ {
+            neu:=r.Grid[i][j]
+            neu = neu.Create(i,j,r.Gridsize,r.Interactions,r.TxVar)
 
-            neu:=r.Outputs[i][j]
-            neu = neu.Create(i,j,r.length,r.maxiteration)
+            neu.Weights = make([]float64,r.Dimensions)
+            neu.WeightsOut = make([]float64, r.DimensionsOut)
+            neu.RGB = make([]int,r.Dimensions)
 
-            neu.Weights = make([]float64,r.dimensions)
-            neu.ExitWeights = make([]float64, r.NumResults)
-            neu.RGB = make([]int,r.dimensions)
-
-            for k := 0; k < r.dimensions; k++ {
+            for k := 0; k < r.Dimensions; k++ {
                 neu.Weights[k] = rand.Float64()
                 neu.RGB[k] = int((neu.Weights[k] * 255))
             }
 
-            for k := 0; k < r.NumResults; k++ {
-                neu.ExitWeights[k] = rand.Float64();
+            for k := 0; k < r.DimensionsOut; k++ {
+                neu.WeightsOut[k] = rand.Float64();
             }
-
-            red:=uint8(neu.RGB[0])
-            green:=uint8(neu.RGB[1])
-            blue:=uint8(neu.RGB[2])
-
-            Screen.Set(i, j, color.RGBA{red, green, blue, 255})
-            r.Outputs[i][j] = neu
+            r.Grid[i][j] = neu
         }
     }
-    Before, _ := os.Create("Before.png")
-    png.Encode(Before, Screen)
-    Before.Close()
 
     return r
 }
 
-func (r Kohonen) NormalisePatterns() Kohonen{
-    r.maxnormal = make([]float64,r.dimensions)
+func (r Kohonen) Draw(f string){
+    Screen := image.NewRGBA(image.Rect(0, 0, r.Gridsize, r.Gridsize))
+    draw.Draw(Screen, Screen.Bounds(), &image.Uniform{white}, image.ZP, draw.Src)
 
-    for j := 0; j < r.dimensions; j++ {
+    for i := 0; i < r.Gridsize; i++ {
+        for j := 0; j < r.Gridsize; j++ {
+            red:=uint8(r.Grid[i][j].RGB[0])
+            green:=uint8(r.Grid[i][j].RGB[1])
+            blue:=uint8(r.Grid[i][j].RGB[2])
+
+            Screen.Set(i, j, color.RGBA{red, green, blue, 255})
+        }
+    }
+    After, _ := os.Create(f)
+    png.Encode(After, Screen)
+    After.Close()
+}
+
+func (r Kohonen) NormalisePatterns() Kohonen{
+    r.Normal = make([]float64,r.Dimensions)
+
+    for j := 0; j < r.Dimensions; j++ {
         max:=float64(0)
         for _, num := range r.Patterns {
-            
             if(max < num[j]){
                 max = num[j]
             }
         }
-        r.maxnormal[j] = max
-        for i := 0; i < r.Numlines; i++ {
+        r.Normal[j] = max
+        for i := 0; i < r.NumReg; i++ {
             r.Patterns[i][j] = r.Patterns[i][j] / max
         }
     }
     return r
 }
 
-func (r Kohonen) Train(Iteractions int) Kohonen{
+func (r Kohonen) Train() Kohonen{
     r = r.NormalisePatterns()
 
-    for inter := 1; inter <= Iteractions; inter++ {
-        for i := 0; i < r.Numlines; i++ {
+    for inter := 1; inter <= r.Interactions; inter++ {
+        for i := 0; i < r.NumReg; i++ {
             r = r.TrainPattern(inter,r.Patterns[i],r.Result[i])
         }
     }
     return r
 }
 
-func (r Kohonen) TrainPattern(inter int, pattern []float64,patternexit []float64) (Kohonen){
+func (r Kohonen) TrainPattern(inter int, pattern []float64,out []float64) (Kohonen){
     var winner neu.Neuron
     winner = r.Winner(pattern)
     
-    aux:=r.Outputs
+    aux:=r.Grid
 
-    for i := 0; i < r.length; i++ {
-        for j := 0; j < r.length; j++ {
-            aux[i][j] = r.Outputs[i][j].UpdateWeigths(pattern, patternexit,winner,inter)
+    for i := 0; i < r.Gridsize; i++ {
+        for j := 0; j < r.Gridsize; j++ {
+            aux[i][j] = r.Grid[i][j].UpdateWeigths(pattern, out, winner, inter)
         }   
     }
-    r.iteration = inter
-
-    r.Outputs = aux
+    r.Grid = aux
     
     return r
 }
@@ -158,18 +149,18 @@ func (r Kohonen) TrainPattern(inter int, pattern []float64,patternexit []float64
 func (r Kohonen) Test(pattern []float64) {
     
     // normaliza a entrada
-    for i := 0; i < r.dimensions; i++ {
-        pattern[i] = pattern[i] / r.maxnormal[i]
+    for i := 0; i < r.Dimensions; i++ {
+        pattern[i] = pattern[i] / r.Normal[i]
     }
 
     neu := r.Winner(pattern)
     max:=0
     fmt.Printf("[")
-    for i := 0; i < len(neu.ExitWeights); i++ {
-        if(neu.ExitWeights[max] <= neu.ExitWeights[i]){
+    for i := 0; i < len(neu.WeightsOut); i++ {
+        if(neu.WeightsOut[max] <= neu.WeightsOut[i]){
             max = i
         }
-        fmt.Printf(" %d ",int(neu.ExitWeights[i]*100))
+        fmt.Printf(" %d ",int(neu.WeightsOut[i]*100))
     }
 
     fmt.Printf("]\n")
@@ -181,15 +172,15 @@ func (r Kohonen) Winner(pattern []float64) neu.Neuron{
 
     min:= math.Sqrt(float64(len(pattern)))
 
-    for i := 0; i < r.length; i++ {
-        for j := 0; j < r.length; j++ {
+    for i := 0; i < r.Gridsize; i++ {
+        for j := 0; j < r.Gridsize; j++ {
             
-            dist:=r.Distance(r.Outputs[i][j].Weights,pattern)
+            dist:=r.Distance(r.Grid[i][j].Weights,pattern)
 
             if(dist< min){
                 min = dist
                 
-                winner = r.Outputs[i][j]
+                winner = r.Grid[i][j]
             }
         }
     }
