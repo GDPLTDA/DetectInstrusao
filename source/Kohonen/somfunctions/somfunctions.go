@@ -98,11 +98,11 @@ func LoadFile(f string) somk.Kohonen {
     return Koh
 }
 
-func LoadKDDCup() somk.Kohonen{
+func LoadKDDCup(col string) somk.Kohonen{
     //var patterns [][]float64
     var labels []string
 
-    Colletion := LoadColletion("KDDCup")
+    Colletion := LoadColletion(col)
     
     var listreg [][]string
     err := Colletion.Find(bson.M{}).All(&listreg)

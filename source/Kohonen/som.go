@@ -5,7 +5,7 @@ import (
     somf "./somfunctions"
     "fmt"
     "flag"
-    //"testing"
+    "testing"
     "os"
     "bufio"
 )
@@ -19,22 +19,43 @@ func main() {
     LoadParams()
     PngBefore = "Before.png"
     PngAfter = "After.png"
-    //if(Test){
-    //    br := testing.Benchmark(Execute)
-    //    fmt.Println(br)
+    
+    //if Test {
+        result := testing.Benchmark(Execute)
     //}
+    nanoseconds := float64(result.T.Nanoseconds()) / float64(result.N)
+    milliseconds := nanoseconds / 1000000.0
+     
+    fmt.Printf("%13.2f ns/op | %13.10f ms/op | %d Iterations\n", nanoseconds, milliseconds, result.N)
+
+    var num float64
+    
+    for true {
+        var a []float64
+        a = append(a, 0,0,0)
+        for i := 0; i < 3; i++ {
+            fmt.Printf("%d >> ", i)
+            n, err := fmt.Scanf("%g\n", &num)
+            if err != nil {
+                fmt.Println(n, err)
+            }
+            
+            a[i] = num
+        }
+        somf.Koh.Test(a)
+    }
     //if(Test){
-       Execute()
+       //Execute()
     //}
 }
 
-func Execute(){
+func Execute(b *testing.B){
     // faz a leitura dos dados de treinamento
     if Loadtype == 0 {
         somf.Koh = somf.LoadFile(Filename)
     }
     if Loadtype == 1 {
-        somf.Koh = somf.LoadKDDCup()
+        somf.Koh = somf.LoadKDDCup("KDDCup")
     }
     if Loadtype == 2 {
         //Koh = LoadJson()
@@ -51,25 +72,6 @@ func Execute(){
     if Savetrain{
         somf.SaveTrainJson(Trainname)
     }
-    
-    var num float64
-    
-    for true {
-        var a []float64
-        a = append(a, 0,0,0)
-        for i := 0; i < 3; i++ {
-            fmt.Printf("%d >> ", i)
-            n, err := fmt.Scanf("%g\n", &num)
-            if err != nil {
-                fmt.Println(n, err)
-            }
-            a[i] = num
-        }
-        
-        somf.Koh.Test(a)
-    }
-    
-    fmt.Printf("Completed!")
 }
 
 func LoadParams(){

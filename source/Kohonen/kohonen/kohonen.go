@@ -58,8 +58,8 @@ func (r Kohonen) Initialise() Kohonen{
     r.Grid=make([][]neu.Neuron,r.Gridsize)
 
     for i := 0; i < r.Gridsize; i++ {
+        r.Grid[i] = make([]neu.Neuron,r.Gridsize)
         for j := 0; j < r.Gridsize; j++ {
-            r.Grid[i] = make([]neu.Neuron,r.Gridsize)
 
             neu:=r.Grid[i][j]
             neu = neu.Create(i,j,r.Gridsize,r.Interactions,r.TxVar)
@@ -67,6 +67,7 @@ func (r Kohonen) Initialise() Kohonen{
             neu.Weights = make([]float64,r.Dimensions)
             neu.WeightsOut = make([]float64, r.DimensionsOut)
             neu.RGB = make([]int,r.Dimensions)
+
 
             for k := 0; k < r.Dimensions; k++ {
                 neu.Weights[k] = rand.Float64()
@@ -96,6 +97,7 @@ func (r Kohonen) Draw(f string){
             Screen.Set(i, j, color.RGBA{red, green, blue, 255})
         }
     }
+
     After, _ := os.Create(f)
     png.Encode(After, Screen)
     After.Close()
