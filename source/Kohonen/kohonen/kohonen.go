@@ -53,6 +53,10 @@ func (r Kohonen) Create(l int, d int, i int, v float64) Kohonen{
     return r
 }
 
+func (r Kohonen) Empty() bool{
+    return len(r.Grid) == 0
+}
+
 func (r Kohonen) Initialise() Kohonen{
 
     r.Grid=make([][]neu.Neuron,r.Gridsize)

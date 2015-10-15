@@ -2,7 +2,6 @@ package somf
 
 import (
 	somk "../kohonen"
-	somn "../neuron"
 	"os"
     "os/exec"
     "gopkg.in/mgo.v2"
@@ -12,6 +11,7 @@ import (
     "strconv"
     "bufio"
     "fmt"
+    "io/ioutil"
 )
 
 var Koh somk.Kohonen
@@ -117,18 +117,22 @@ func LoadKDDCup(col string) somk.Kohonen{
     }
 
     Koh = Koh.Create(Gridsize,Dimensions,Interactions,TxVar)
-    //Koh.Labels   = labels
+    Koh.Labels   = labels
     Koh.NumReg = numlines
-
+    Koh.DimensionsOut = len(labels)
+    
     return Koh
 }
 
-func SaveTrainDB(){
-    Colletion := LoadColletion("GridTrain")
+func SaveDB(col string){
+    Colletion := LoadColletion(col)
     Colletion.RemoveAll(nil)
 
+    Colletion.Insert(Koh)
+    fmt.Printf("Treinamento Salvo\n")
+    /*
     ind:=0
-    for _, newline:= range Koh.Grid {
+    for _, newline:= range Koh {
         for _, newreg:= range newline {
             err := Colletion.Insert(newreg)
             Checkerro(err)
@@ -136,29 +140,26 @@ func SaveTrainDB(){
             ind++
         }
     }
-
-    fmt.Printf("Treinamento Salvo, Linhas: %d\n",ind)
+    */
 }
 
-func LoadTrainDB(col string) [][]somn.Neuron{
-    var DbTrain []somn.Neuron
-    var ListTrain [][]somn.Neuron
-
+func LoadDB(col string) somk.Kohonen{
     Colletion := LoadColletion(col)
 
-    err := Colletion.Find(bson.M{}).All(&DbTrain)
+    err := Colletion.Find(bson.M{}).All(&Koh)
     Checkerro(err)
 
-    return ListTrain
+    fmt.Printf("Treinamento Carregado\n")
+    return Koh
 }
 
-func SaveTrainJson(f string){
+func SaveJson(f string){
     o, err := os.Create(f)
     if err != nil {
         panic(err)
     }
 
-    b, err := json.Marshal(Koh.Grid)
+    b, err := json.Marshal(Koh)
     if err != nil {
         fmt.Println(err)
         return
@@ -168,6 +169,15 @@ func SaveTrainJson(f string){
     fmt.Printf("Treinamento Salvo\n")
 }
 
-func LoadTrainJson(){
-    
+func LoadJson(f string) somk.Kohonen{
+    fmt.Printf("Treinamento Carregado\n")
+    file, e := ioutil.ReadFile(f)
+    if e != nil {
+        fmt.Printf("File error: %v\n", e)
+        os.Exit(1)
+    }
+
+    json.Unmarshal(file, &Koh)
+
+    return Koh
 }
