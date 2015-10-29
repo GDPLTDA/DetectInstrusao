@@ -50,7 +50,7 @@ func LoadColletion(name string) *mgo.Collection{
     return session.DB(Dbname).C(name)
 }
 
-func LoadFile(f string) somk.Kohonen {
+func LoadFile(f string) ([][]float64,[]string) {
     // faz a leitura do arquivo
     file,err := os.Open(f)
     Checkerro(err)
@@ -88,40 +88,29 @@ func LoadFile(f string) somk.Kohonen {
         patterns = append(patterns, inputs)
     }
 
-    Koh.Patterns = patterns
-    Koh.NumReg   = len(patterns)
-    Koh.DimensionsOut = len(labels)
-    Koh.Labels   = labels
-
-    Koh = Koh.Create(Gridsize,Dimensions,Interactions,TxVar)
-
-    return Koh
+    return patterns,labels
 }
 
-func LoadKDDCup(col string) somk.Kohonen{
+func LoadKDDCup(col string) ([][]float64,[]string){
     //var patterns [][]float64
     var labels []string
 
     Colletion := LoadColletion(col)
     
-    var listreg [][]string
-    err := Colletion.Find(bson.M{}).All(&listreg)
+    var patterns [][]float64
+
+    err := Colletion.Find(bson.M{}).All(&patterns)
     Checkerro(err)
-    numlines:=0
-    for _,reg:= range listreg{
-        labels = append(labels, reg[0])
+    //numlines:=0
+    //for _,reg:= range patterns{
+        //labels = append(labels, string(reg[0]))
         
-        fmt.Printf(reg[0]+"\n")
+        //fmt.Printf(reg[0]+"\n")
 
-        numlines++
-    }
+        //numlines++
+    //}
 
-    Koh = Koh.Create(Gridsize,Dimensions,Interactions,TxVar)
-    Koh.Labels   = labels
-    Koh.NumReg = numlines
-    Koh.DimensionsOut = len(labels)
-    
-    return Koh
+    return patterns,labels
 }
 
 func SaveDB(col string){
@@ -149,7 +138,6 @@ func LoadDB(col string) somk.Kohonen{
     err := Colletion.Find(bson.M{}).All(&Koh)
     Checkerro(err)
 
-    fmt.Printf("Treinamento Carregado\n")
     return Koh
 }
 
@@ -170,7 +158,6 @@ func SaveJson(f string){
 }
 
 func LoadJson(f string) somk.Kohonen{
-    fmt.Printf("Treinamento Carregado\n")
     file, e := ioutil.ReadFile(f)
     if e != nil {
         fmt.Printf("File error: %v\n", e)

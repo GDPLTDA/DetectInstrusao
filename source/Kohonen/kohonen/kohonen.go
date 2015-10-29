@@ -9,7 +9,6 @@ import (
     "image/color"
     "image/draw"
     "image/png"
-    "fmt"
     "time"
 )
 
@@ -152,7 +151,7 @@ func (r Kohonen) TrainPattern(inter int, pattern []float64,out []float64) (Kohon
     return r
 }
 
-func (r Kohonen) Test(pattern []float64) {
+func (r Kohonen) Test(pattern []float64) ([]float64,string) {
     
     // normaliza a entrada
     for i := 0; i < r.Dimensions; i++ {
@@ -161,16 +160,15 @@ func (r Kohonen) Test(pattern []float64) {
 
     neu := r.Winner(pattern)
     max:=0
-    fmt.Printf("[")
+    //fmt.Printf("[")
     for i := 0; i < len(neu.WeightsOut); i++ {
         if(neu.WeightsOut[max] <= neu.WeightsOut[i]){
             max = i
         }
-        fmt.Printf(" %d ",int(neu.WeightsOut[i]*100))
+        //fmt.Printf(" %d ",int(neu.WeightsOut[i]*100))
     }
 
-    fmt.Printf("]\n")
-    fmt.Println(r.Labels[max])
+    return neu.WeightsOut,r.Labels[max]
 }
 
 func (r Kohonen) Winner(pattern []float64) neu.Neuron{

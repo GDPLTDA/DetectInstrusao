@@ -11,7 +11,7 @@ import (
 )
 var Test bool
 var Loadtype int
-var Filename, Savename string
+var Filename, Savename, ValidFilename string
 var Saved, Train bool
 var PngBefore,PngAfter string
 
@@ -19,34 +19,30 @@ func main() {
     LoadParams()
     PngBefore = "Before.png"
     PngAfter = "After.png"
-    
-    if Test {
-        result := testing.Benchmark(ExecuteTest)
-    
-        seconds := float64(result.T.Seconds()) / float64(result.N)
-        fmt.Printf("%13.2f s\n\n", seconds)
-    }
-
-    if !Test  {
-        Execute()
-    }
     ShowParams()
 
-    var num float64
-    
-    for !Saved {
-        var a []float64
-        a = append(a, 0,0,0)
-        for i := 0; i < somf.Dimensions; i++ {
-            fmt.Printf("%d >> ", i)
-            n, err := fmt.Scanf("%g\n", &num)
-            if err != nil {
-                fmt.Println(n, err)
+    if Test {
+        result := testing.Benchmark(ExecuteTest)
+        
+        patterns,labels :=somf.LoadFile(ValidFilename)
+
+        seconds := float64(result.T.Seconds()) / float64(result.N)
+        fmt.Printf("%13.2f s\n\n", seconds)
+
+        for i := 0; i < len(patterns); i++ {
+            Weights,label := somf.Koh.Test(patterns[i])
+            fmt.Printf("\nO:%s   R:%s\n",labels[i],label)
+
+            fmt.Printf(" [")
+            for j := 0; j < len(Weights); j++ {
+                fmt.Printf(" %d ",int(Weights[j]*100))
             }
-            
-            a[i] = num
+            fmt.Printf("]")
         }
-        somf.Koh.Test(a)
+    }
+    
+    if !Test  {
+        Execute()
     }
 }
 func ExecuteTest(b *testing.B) {
@@ -54,20 +50,31 @@ func ExecuteTest(b *testing.B) {
 }
 
 func Execute(){
+    var patterns [][]float64
+    var labels []string
+
     // faz a leitura dos dados de treinamento
     if Loadtype == 0 {
-        somf.Koh = somf.LoadFile(Filename)
+        patterns,labels =somf.LoadFile(Filename)
     }
     if Loadtype == 1 {
-        somf.Koh = somf.LoadKDDCup("KDDCup")
+        patterns,labels =somf.LoadKDDCup("KDDCup")
     }
     if Loadtype == 2 {
         somf.Koh = somf.LoadJson(Filename)
+    }else{
+        somf.Koh.Patterns = patterns
+        somf.Koh.NumReg   = len(patterns)
+        somf.Koh.DimensionsOut = len(labels)
+        somf.Koh.Labels   = labels
+
+        somf.Koh = somf.Koh.Create(somf.Gridsize,somf.Dimensions,somf.Interactions,somf.TxVar)
     }
 
     if somf.Koh.Empty() {
         return
     }
+
     // Desenha o estado atual da grade antes do treino
     somf.Koh.Draw(PngBefore)
 
@@ -82,7 +89,6 @@ func Execute(){
     if Saved{
         somf.SaveJson(Savename)
     }
-
 }
 
 func LoadParams(){
@@ -98,6 +104,7 @@ func LoadParams(){
     flag.StringVar(&Savename,"sname", "", "Save file name")
     flag.IntVar(&Loadtype,"type", 0, "0-Load file, 1-Load KddCup, 2-Json File")
     flag.StringVar(&Filename,"f", "", "File name")
+    flag.StringVar(&ValidFilename,"fv", Filename, "Valid File name")
     flag.BoolVar(&Test,"test", false, "Test time")
 
     config:= flag.String("config", "", "Config file")
